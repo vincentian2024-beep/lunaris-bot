@@ -78,35 +78,43 @@ ticketNumber = data.purchaseCounter;
 saveData(data);
 }
 
-  const channel = await interaction.guild.channels.create({
-    name: `${ticketType}-${ticketNumber}`,
-    type: ChannelType.GuildText,
-    parent: TICKET_CATEGORY,
+ const channel = await interaction.guild.channels.create({
+  name: `${ticketType}-${ticketNumber}`,
+  type: ChannelType.GuildText,
+  parent: TICKET_CATEGORY,
 
-    permissionOverwrites: [
-      {
-  
-        id: interaction.guild.id,
-        deny: [PermissionFlagsBits.ViewChannel]
-      },
-      {
-        id: interaction.user.id,
-        allow: [
-          PermissionFlagsBits.ViewChannel,
-          PermissionFlagsBits.SendMessages,
-          PermissionFlagsBits.ReadMessageHistory
-        ]
-      },
-      {
-        id: STAFF_ROLE_ID,
-        allow: [
-          PermissionFlagsBits.ViewChannel,
-          PermissionFlagsBits.SendMessages,
-          PermissionFlagsBits.ReadMessageHistory
-        ]
-      }
-    ]
-  });
+  permissionOverwrites: [
+    {
+      id: interaction.guild.id,
+      deny: [PermissionFlagsBits.ViewChannel]
+    },
+    {
+      id: interaction.user.id,
+      allow: [
+        PermissionFlagsBits.ViewChannel,
+        PermissionFlagsBits.SendMessages,
+        PermissionFlagsBits.ReadMessageHistory
+      ]
+    },
+    {
+      id: STAFF_ROLE_ID,
+      allow: [
+        PermissionFlagsBits.ViewChannel,
+        PermissionFlagsBits.SendMessages,
+        PermissionFlagsBits.ReadMessageHistory
+      ]
+    }
+  ]
+});
+
+data.lastTicket = {
+  channelId: channel.id,
+  ticketType,
+  ticketNumber,
+  userId: interaction.user.id
+};
+
+saveData(data);
 
 const ign = interaction.fields.getTextInputValue("ign");
 const platform = interaction.fields.getTextInputValue("platform");
