@@ -20,39 +20,27 @@ export async function suggestionPanelCommand(message) {
     });
 
   const row = new ActionRowBuilder()
-  .addComponents(
-    new ButtonBuilder()
-      .setCustomId("open_suggestion")
-      .setLabel("Submit Suggestion")
-      .setEmoji("📨")
-      .setStyle(ButtonStyle.Primary)
-  );
+    .addComponents(
+      new ButtonBuilder()
+        .setCustomId("open_suggestion")
+        .setLabel("Submit Suggestion")
+        .setEmoji("📨")
+        .setStyle(ButtonStyle.Primary)
+    );
 
-const panel = await message.channel.send({
-  embeds: [embed],
-  components: [row]
-});
-
-const panelData = {
-  messageId: panel.id
-};
-
-fs.writeFileSync(
-  "./data/panel.json",
-  JSON.stringify(panelData, null, 2)
-);
-
-await message.delete().catch(() => {});
-}
-
-fs.writeFileSync(
-  "./data/panel.json",
-  JSON.stringify(panelData, null, 2)
-);
+  const panel = await message.channel.send({
     embeds: [embed],
     components: [row]
   });
 
+  const panelData = {
+    messageId: panel.id
+  };
+
+  fs.writeFileSync(
+    "./data/panel.json",
+    JSON.stringify(panelData, null, 2)
+  );
 
   await message.delete().catch(() => {});
 }
