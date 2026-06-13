@@ -8,6 +8,5 @@
   },
   "dependencies": {
     "discord.js": "^14.21.0",
-    "openai": "^5.12.2"
   }
 }
