@@ -1,4 +1,3 @@
-```js
 const AI_CHANNEL = "1515185455543619706";
 
 export async function handleAI(message) {
@@ -61,4 +60,3 @@ export async function handleAI(message) {
     return true;
   }
 }
-```
