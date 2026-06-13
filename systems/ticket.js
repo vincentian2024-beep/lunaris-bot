@@ -85,6 +85,15 @@ saveData(data);
 
     permissionOverwrites: [
       {
+  });
+  data.lastTicket = {
+  channelId: channel.id,
+  ticketType,
+  ticketNumber,
+  userId: interaction.user.id
+};
+
+saveData(data);
         id: interaction.guild.id,
         deny: [PermissionFlagsBits.ViewChannel]
       },
