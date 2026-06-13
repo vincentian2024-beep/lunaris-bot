@@ -95,30 +95,120 @@ if (aiHandled) return;
 });
 
 client.on("interactionCreate", async (interaction) => {
-
-  // MODAL SUBMITS
-  if (interaction.isModalSubmit()) {
-    return interaction.reply({
-      content: "Modal received.",
-      ephemeral: true
-    });
-  }
-
-  // BUTTONS
   if (!interaction.isButton()) return;
 
+  // REPORT
   if (interaction.customId === "report") {
-    // your report modal code here
+    const modal = new ModalBuilder()
+      .setCustomId("report_modal")
+      .setTitle("Player Report");
+
+    const ign = new TextInputBuilder()
+      .setCustomId("ign")
+      .setLabel("Minecraft IGN")
+      .setStyle(TextInputStyle.Short)
+      .setRequired(true);
+
+    const platform = new TextInputBuilder()
+      .setCustomId("platform")
+      .setLabel("Java or Bedrock")
+      .setStyle(TextInputStyle.Short)
+      .setRequired(true);
+
+    const reported = new TextInputBuilder()
+      .setCustomId("reported")
+      .setLabel("Reported Player IGN")
+      .setStyle(TextInputStyle.Short)
+      .setRequired(true);
+
+    const reason = new TextInputBuilder()
+      .setCustomId("reason")
+      .setLabel("Reason")
+      .setStyle(TextInputStyle.Paragraph)
+      .setRequired(true);
+
+    modal.addComponents(
+      new ActionRowBuilder().addComponents(ign),
+      new ActionRowBuilder().addComponents(platform),
+      new ActionRowBuilder().addComponents(reported),
+      new ActionRowBuilder().addComponents(reason)
+    );
+
+    return interaction.showModal(modal);
   }
 
+  // PURCHASE
   if (interaction.customId === "purchase") {
-    // your purchase modal code here
+    const modal = new ModalBuilder()
+      .setCustomId("purchase_modal")
+      .setTitle("Purchase Ticket");
+
+    const ign = new TextInputBuilder()
+      .setCustomId("ign")
+      .setLabel("Minecraft IGN")
+      .setStyle(TextInputStyle.Short)
+      .setRequired(true);
+
+    const platform = new TextInputBuilder()
+      .setCustomId("platform")
+      .setLabel("Java or Bedrock")
+      .setStyle(TextInputStyle.Short)
+      .setRequired(true);
+
+    const product = new TextInputBuilder()
+      .setCustomId("product")
+      .setLabel("Product Wanted (Rank or Keys)")
+      .setStyle(TextInputStyle.Short)
+      .setRequired(true);
+
+    const payment = new TextInputBuilder()
+      .setCustomId("payment")
+      .setLabel("Payment Method (GCash or PayPal)")
+      .setStyle(TextInputStyle.Short)
+      .setRequired(true);
+
+    modal.addComponents(
+      new ActionRowBuilder().addComponents(ign),
+      new ActionRowBuilder().addComponents(platform),
+      new ActionRowBuilder().addComponents(product),
+      new ActionRowBuilder().addComponents(payment)
+    );
+
+    return interaction.showModal(modal);
   }
 
+  // SUPPORT
   if (interaction.customId === "support") {
-    // your support modal code here
-  }
+    const modal = new ModalBuilder()
+      .setCustomId("support_modal")
+      .setTitle("Support Ticket");
 
+    const ign = new TextInputBuilder()
+      .setCustomId("ign")
+      .setLabel("Minecraft IGN")
+      .setStyle(TextInputStyle.Short)
+      .setRequired(true);
+
+    const platform = new TextInputBuilder()
+      .setCustomId("platform")
+      .setLabel("Java or Bedrock")
+      .setStyle(TextInputStyle.Short)
+      .setRequired(true);
+
+    const issue = new TextInputBuilder()
+      .setCustomId("issue")
+      .setLabel("Issue Description")
+      .setStyle(TextInputStyle.Paragraph)
+      .setRequired(true);
+
+    modal.addComponents(
+      new ActionRowBuilder().addComponents(ign),
+      new ActionRowBuilder().addComponents(platform),
+      new ActionRowBuilder().addComponents(issue)
+    );
+
+    return interaction.showModal(modal);
+  }
 });
 
 client.login(process.env.DISCORD_TOKEN);
