@@ -5,6 +5,7 @@ import {
 } from "discord.js";
 
 import { pingCommand } from "./commands/ping.js";
+import { addAutoRole } from "./systems/autorole.js";
 
 const client = new Client({
   intents: [
@@ -25,6 +26,8 @@ client.once("ready", () => {
 });
 
 client.on("guildMemberAdd", async (member) => {
+  await addAutoRole(member);
+
   const channel = member.guild.channels.cache.get(WELCOME_CHANNEL);
 
   if (!channel) return;
