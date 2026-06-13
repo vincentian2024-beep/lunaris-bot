@@ -95,6 +95,8 @@ if (aiHandled) return;
 }
 });
 
+client.on("interactionCreate", async (interaction) => {
+
 if (
   interaction.isButton() &&
   interaction.customId === "close_ticket"
@@ -114,8 +116,6 @@ if (
 
   return;
 }
-
-client.on("interactionCreate", async (interaction) => {
 
   if (interaction.isModalSubmit()) {
   return handleTicketModal(interaction);
