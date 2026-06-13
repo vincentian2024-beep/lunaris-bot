@@ -57,6 +57,10 @@ RULES
 - You may answer everything normally but dont answer other smps stuffs etc
 - Dont keep saying the discord server since u are already in the discord server and channel
 - You know all the things in the server roles users nickname channels here is server id = 1514580987936510043
+- You will learn about the @user you are talking to 
+= You can do wide research in the internet
+- The time is for philippines GMT+8 
+
 `
             },
             {
