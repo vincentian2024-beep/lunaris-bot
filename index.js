@@ -1,4 +1,3 @@
-```js
 import {
   Client,
   GatewayIntentBits,
@@ -6,7 +5,6 @@ import {
 } from "discord.js";
 
 import { pingCommand } from "./commands/ping.js";
-import { addAutoRole } from "./systems/autorole.js";
 
 const client = new Client({
   intents: [
@@ -19,15 +17,14 @@ const client = new Client({
 
 const PREFIX = "?";
 
-const WELCOME_CHANNEL = "1514594312166314145";
+// CHANGE THIS TO YOUR WELCOME CHANNEL ID
+const WELCOME_CHANNEL = "PUT_CHANNEL_ID_HERE";
 
 client.once("ready", () => {
   console.log(`${client.user.tag} is online!`);
 });
 
 client.on("guildMemberAdd", async (member) => {
-  await addAutoRole(member);
-
   const channel = member.guild.channels.cache.get(WELCOME_CHANNEL);
 
   if (!channel) return;
@@ -42,6 +39,7 @@ client.on("messageCreate", async (message) => {
   const args = message.content.slice(PREFIX.length).trim().split(/ +/);
   const command = args.shift()?.toLowerCase();
 
+  // ?testwelcome @user
   if (command === "testwelcome") {
     if (
       !message.member.permissions.has(
@@ -63,15 +61,12 @@ client.on("messageCreate", async (message) => {
       return message.reply("❌ Welcome channel not found.");
     }
 
-    return channel.send(
-      `🌙 Welcome to **Lunaris Craft**, <@${user.id}>!`
-    );
+    channel.send(`🌙 Welcome to **Lunaris Craft**, <@${user.id}>!`);
   }
 
   if (command === "ping") {
-    return pingCommand(message);
-  }
+  return pingCommand(message);
+}
 });
 
 client.login(process.env.DISCORD_TOKEN);
-```
