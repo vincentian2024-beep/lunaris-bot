@@ -97,6 +97,10 @@ if (aiHandled) return;
 
 client.on("interactionCreate", async (interaction) => {
 
+  if (interaction.isModalSubmit()) {
+  return handleTicketModal(interaction);
+}
+
 // MODAL SUBMITS
 if (interaction.isModalSubmit()) {
   const ticketNumber = Date.now().toString().slice(-6);
