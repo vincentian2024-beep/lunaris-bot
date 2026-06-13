@@ -1,8 +1,5 @@
-data.lastTicket = {
-  channelId: channel.id,
-  ticketType,
-  ticketNumber,
-  userId: interaction.user.id
-};
-
-saveData(data);
+{
+  "reportCounter": 0,
+  "supportCounter": 0,
+  "purchaseCounter": 0
+}
