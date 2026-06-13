@@ -92,4 +92,29 @@ if (aiHandled) return;
 }
 });
 
+client.on("interactionCreate", async (interaction) => {
+  if (!interaction.isButton()) return;
+
+  if (interaction.customId === "report") {
+    await interaction.reply({
+      content: "🔴 Player Report clicked.",
+      ephemeral: true
+    });
+  }
+
+  if (interaction.customId === "purchase") {
+    await interaction.reply({
+      content: "🟢 Purchase clicked.",
+      ephemeral: true
+    });
+  }
+
+  if (interaction.customId === "support") {
+    await interaction.reply({
+      content: "🔵 Support clicked.",
+      ephemeral: true
+    });
+  }
+});
+
 client.login(process.env.DISCORD_TOKEN);
