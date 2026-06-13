@@ -95,6 +95,66 @@ if (aiHandled) return;
 });
 
 client.on("interactionCreate", async (interaction) => {
+
+// MODAL SUBMITS
+if (interaction.isModalSubmit()) {
+  const ticketNumber = Date.now().toString().slice(-6);
+
+  let ticketType = "ticket";
+
+  if (interaction.customId === "report_modal") {
+    ticketType = "report";
+  }
+
+  if (interaction.customId === "support_modal") {
+    ticketType = "support";
+  }
+
+  if (interaction.customId === "purchase_modal") {
+    ticketType = "purchase";
+  }
+
+  const ticketChannel = await interaction.guild.channels.create({
+    name: `${ticketType}-${ticketNumber}`,
+    type: ChannelType.GuildText,
+    parent: TICKET_CATEGORY,
+
+    permissionOverwrites: [
+      {
+        id: interaction.guild.id,
+        deny: [PermissionFlagsBits.ViewChannel]
+      },
+      {
+        id: interaction.user.id,
+        allow: [
+          PermissionFlagsBits.ViewChannel,
+          PermissionFlagsBits.SendMessages,
+          PermissionFlagsBits.ReadMessageHistory
+        ]
+      },
+      {
+        id: STAFF_ROLE_ID,
+        allow: [
+          PermissionFlagsBits.ViewChannel,
+          PermissionFlagsBits.SendMessages,
+          PermissionFlagsBits.ReadMessageHistory
+        ]
+      }
+    ]
+  });
+
+  await interaction.reply({
+    content: `✅ Ticket created: ${ticketChannel}`,
+    ephemeral: true
+  });
+
+  await ticketChannel.send(
+    `🎫 Ticket #${ticketNumber}\nOpened by ${interaction.user}`
+  );
+
+  return;
+}
+
   if (!interaction.isButton()) return;
 
   // REPORT
