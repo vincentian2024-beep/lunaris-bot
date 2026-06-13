@@ -10,7 +10,8 @@ import {
   TextInputStyle,
   ChannelType,
   PermissionFlagsBits,
-  EmbedBuilder
+  EmbedBuilder,
+  AttachmentBuilder
 } from "discord.js";
 
 import { pingCommand } from "./commands/ping.js";
