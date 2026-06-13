@@ -19,7 +19,7 @@ const client = new Client({
 const PREFIX = "?";
 
 // CHANGE THIS TO YOUR WELCOME CHANNEL ID
-const WELCOME_CHANNEL = "PUT_CHANNEL_ID_HERE";
+const WELCOME_CHANNEL = "1514594312166314145";
 
 client.once("ready", () => {
   console.log(`${client.user.tag} is online!`);
