@@ -1,3 +1,4 @@
+```js
 import {
   Client,
   GatewayIntentBits,
@@ -14,13 +15,10 @@ const client = new Client({
     GatewayIntentBits.GuildMessages,
     GatewayIntentBits.MessageContent
   ]
-
-import { pingCommand } from "./commands/ping.js";
 });
 
 const PREFIX = "?";
 
-// CHANGE THIS TO YOUR WELCOME CHANNEL ID
 const WELCOME_CHANNEL = "1514594312166314145";
 
 client.once("ready", () => {
@@ -44,7 +42,6 @@ client.on("messageCreate", async (message) => {
   const args = message.content.slice(PREFIX.length).trim().split(/ +/);
   const command = args.shift()?.toLowerCase();
 
-  // ?testwelcome @user
   if (command === "testwelcome") {
     if (
       !message.member.permissions.has(
@@ -66,12 +63,15 @@ client.on("messageCreate", async (message) => {
       return message.reply("❌ Welcome channel not found.");
     }
 
-    channel.send(`🌙 Welcome to **Lunaris Craft**, <@${user.id}>!`);
+    return channel.send(
+      `🌙 Welcome to **Lunaris Craft**, <@${user.id}>!`
+    );
   }
 
   if (command === "ping") {
-  return pingCommand(message);
-}
+    return pingCommand(message);
+  }
 });
 
 client.login(process.env.DISCORD_TOKEN);
+```
