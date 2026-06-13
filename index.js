@@ -36,6 +36,7 @@ const WELCOME_CHANNEL = "1514594312166314145";
 const TICKET_CATEGORY = "1514630022336348251";
 const STAFF_ROLE_ID = "1514923759109406870";
 const TICKET_LOGS = "1515246807477649468";
+const MEDIA_CHANNEL = "1514956225937149972";
 
 client.once("ready", () => {
   console.log(`${client.user.tag} is online!`);
@@ -55,6 +56,20 @@ client.on("messageCreate", async (message) => {
   if (message.author.bot) return;
   
   const aiHandled = await handleAI(message);
+
+  if (
+  message.channel.id === MEDIA_CHANNEL &&
+  message.attachments.size > 0
+) {
+  try {
+    await message.startThread({
+      name: `📸 ${message.author.username}'s Media`,
+      autoArchiveDuration: 1440
+    });
+  } catch (err) {
+    console.error(err);
+  }
+}
 
 if (aiHandled) return;
   
