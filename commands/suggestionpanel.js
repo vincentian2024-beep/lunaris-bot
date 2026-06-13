@@ -31,7 +31,6 @@ export async function suggestionPanelCommand(message) {
     components: [row]
   });
 
-  await panel.pin();
 
   await message.delete().catch(() => {});
 }
