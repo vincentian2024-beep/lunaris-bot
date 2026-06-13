@@ -379,7 +379,6 @@ if (interaction.isModalSubmit()) {
 
   if (
   interaction.isButton() &&
-  interaction.customId === "suggest_manage"
 ) {
 
   if (
