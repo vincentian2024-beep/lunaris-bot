@@ -65,21 +65,6 @@ client.on(
   }
 );
 
-client.on("guildMemberAdd", async (member) => {
-
-client.on(
-  "voiceStateUpdate",
-  async (oldState, newState) => {
-    await handleJoinToCreate(
-      oldState,
-      newState
-    );
-  }
-);
-
-client.on("guildMemberAdd", async (member) => {
-
-client.on("guildMemberAdd", async (member) => {
   await addAutoRole(member);
 
   const channel = member.guild.channels.cache.get(WELCOME_CHANNEL);
