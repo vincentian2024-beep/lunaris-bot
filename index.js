@@ -162,21 +162,6 @@ client.on("interactionCreate", async (interaction) => {
     });
   }
 
-  await interaction.reply({
-    content: `✅ Ticket resolved by ${interaction.user}\n🗑️ Deleting in 10 seconds...`
-  });
-
-  setTimeout(async () => {
-    try {
-      await interaction.channel.delete();
-    } catch (err) {
-      console.error(err);
-    }
-  }, 10000);
-
-  return;
-}
-
   await interaction.reply(
     `✅ Ticket resolved by ${interaction.user}\n🗑️ Deleting in 10 seconds...`
   );
