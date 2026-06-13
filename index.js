@@ -6,6 +6,7 @@ import {
 
 import { pingCommand } from "./commands/ping.js";
 import { addAutoRole } from "./systems/autorole.js";
+import { handleAI } from "./systems/ai.js";
 
 const client = new Client({
   intents: [
@@ -37,6 +38,11 @@ client.on("guildMemberAdd", async (member) => {
 
 client.on("messageCreate", async (message) => {
   if (message.author.bot) return;
+  
+  const aiHandled = await handleAI(message);
+
+if (aiHandled) return;
+  
   if (!message.content.startsWith(PREFIX)) return;
 
   const args = message.content.slice(PREFIX.length).trim().split(/ +/);
