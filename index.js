@@ -19,6 +19,7 @@ import { addAutoRole } from "./systems/autorole.js";
 import { handleAI } from "./systems/ai.js";
 import { ticketPanelCommand } from "./commands/ticketpanel.js";
 import { handleTicketModal } from "./systems/ticket.js";
+import { suggestionPanelCommand } from "./commands/suggestionpanel.js";
 
 const client = new Client({
   intents: [
