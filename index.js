@@ -93,6 +93,17 @@ if (aiHandled) return;
 });
 
 client.on("interactionCreate", async (interaction) => {
+
+  // MODAL SUBMIT
+  if (interaction.isModalSubmit()) {
+    console.log("Modal submitted:", interaction.customId);
+
+    return interaction.reply({
+      content: "✅ Modal received. Ticket creation coming next.",
+      ephemeral: true
+    });
+  }
+
   if (!interaction.isButton()) return;
 
   // REPORT
