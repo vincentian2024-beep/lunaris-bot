@@ -95,12 +95,37 @@ if (aiHandled) return;
 client.on("interactionCreate", async (interaction) => {
   if (!interaction.isButton()) return;
 
-  if (interaction.customId === "report") {
-    await interaction.reply({
-      content: "🔴 Player Report clicked.",
-      ephemeral: true
-    });
-  }
+if (interaction.customId === "report") {
+  const modal = new ModalBuilder()
+    .setCustomId("report_modal")
+    .setTitle("Player Report");
+
+  const ign = new TextInputBuilder()
+    .setCustomId("ign")
+    .setLabel("Minecraft IGN")
+    .setStyle(TextInputStyle.Short)
+    .setRequired(true);
+
+  const platform = new TextInputBuilder()
+    .setCustomId("platform")
+    .setLabel("Java or Bedrock")
+    .setStyle(TextInputStyle.Short)
+    .setRequired(true);
+
+  const reason = new TextInputBuilder()
+    .setCustomId("reason")
+    .setLabel("Reason")
+    .setStyle(TextInputStyle.Paragraph)
+    .setRequired(true);
+
+  modal.addComponents(
+    new ActionRowBuilder().addComponents(ign),
+    new ActionRowBuilder().addComponents(platform),
+    new ActionRowBuilder().addComponents(reason)
+  );
+
+  await interaction.showModal(modal);
+}
 
 if (interaction.customId === "report") {
   const modal = new ModalBuilder()
