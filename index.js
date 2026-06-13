@@ -122,6 +122,26 @@ client.on("interactionCreate", async (interaction) => {
 
   if (
   interaction.isButton() &&
+  interaction.customId === "suggest_upvote"
+) {
+  return interaction.reply({
+    content: "👍 Upvoted!",
+    ephemeral: true
+  });
+}
+
+if (
+  interaction.isButton() &&
+  interaction.customId === "suggest_downvote"
+) {
+  return interaction.reply({
+    content: "👎 Downvoted!",
+    ephemeral: true
+  });
+}
+
+  if (
+  interaction.isButton() &&
   interaction.customId === "resolve_ticket"
 ) {
   if (
