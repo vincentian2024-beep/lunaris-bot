@@ -6,7 +6,8 @@ import {
   ButtonBuilder,
   ButtonStyle,
   ChannelType,
-  PermissionFlagsBits
+  PermissionFlagsBits,
+  PermissionsBitField
 } from "discord.js";
 
 const client = new Client({
