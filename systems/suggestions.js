@@ -41,25 +41,35 @@ export async function createSuggestion(
     .setTimestamp();
 
   const row = new ActionRowBuilder()
-    .addComponents(
-      new ButtonBuilder()
-        .setCustomId("suggest_upvote")
-        .setLabel("Upvote (0)")
-        .setEmoji("👍")
-        .setStyle(ButtonStyle.Success),
+.addComponents(
+  new ButtonBuilder()
+    .setCustomId("suggest_upvote")
+    .setLabel("👍 0")
+    .setStyle(ButtonStyle.Success),
 
-      new ButtonBuilder()
-        .setCustomId("suggest_downvote")
-        .setLabel("Downvote (0)")
-        .setEmoji("👎")
-        .setStyle(ButtonStyle.Danger),
+  new ButtonBuilder()
+    .setCustomId("suggest_downvote")
+    .setLabel("👎 0")
+    .setStyle(ButtonStyle.Danger),
 
-      new ButtonBuilder()
-        .setCustomId("suggest_manage")
-        .setLabel("Manage")
-        .setEmoji("⚙️")
-        .setStyle(ButtonStyle.Secondary)
-    );
+  new ButtonBuilder()
+    .setCustomId("suggest_accept")
+    .setLabel("Accept")
+    .setEmoji("✅")
+    .setStyle(ButtonStyle.Success),
+
+  new ButtonBuilder()
+    .setCustomId("suggest_deny")
+    .setLabel("Deny")
+    .setEmoji("❌")
+    .setStyle(ButtonStyle.Danger),
+
+  new ButtonBuilder()
+    .setCustomId("suggest_implemented")
+    .setLabel("Implemented")
+    .setEmoji("🚀")
+    .setStyle(ButtonStyle.Primary)
+);
 
   return {
     embeds: [embed],
