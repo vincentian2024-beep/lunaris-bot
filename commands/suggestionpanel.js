@@ -1,3 +1,5 @@
+import fs from "fs";
+
 import {
   EmbedBuilder,
   ActionRowBuilder,
@@ -26,7 +28,14 @@ export async function suggestionPanelCommand(message) {
         .setStyle(ButtonStyle.Primary)
     );
 
-  const panel = await message.channel.send({
+  const panelData = {
+  messageId: panel.id
+};
+
+fs.writeFileSync(
+  "./data/panel.json",
+  JSON.stringify(panelData, null, 2)
+);
     embeds: [embed],
     components: [row]
   });
