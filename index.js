@@ -110,6 +110,9 @@ if (aiHandled) return;
   
   if (command === "ticketpanel") {
   return ticketPanelCommand(message);
+
+    if (command === "suggestionpanel") {
+  return suggestionPanelCommand(message);
 }
 });
 
