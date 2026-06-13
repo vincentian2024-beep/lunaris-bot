@@ -4,6 +4,8 @@ import {
   PermissionsBitField
 } from "discord.js";
 
+import { pingCommand } from "./commands/ping.js";
+
 const client = new Client({
   intents: [
     GatewayIntentBits.Guilds,
@@ -61,6 +63,10 @@ client.on("messageCreate", async (message) => {
 
     channel.send(`🌙 Welcome to **Lunaris Craft**, <@${user.id}>!`);
   }
+
+  if (command === "ping") {
+  return pingCommand(message);
+}
 });
 
 client.login(process.env.DISCORD_TOKEN);
