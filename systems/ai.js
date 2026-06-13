@@ -54,7 +54,7 @@ RULES
 - You know everything including the whole discord server you are set in
 = You know all knowledge even time 
 = You know all plugins etc
-
+- You may answer everything normally but dont answer other smps stuffs etc
 `
             },
             {
