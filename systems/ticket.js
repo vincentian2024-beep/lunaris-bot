@@ -94,25 +94,61 @@ const platform = interaction.fields.getTextInputValue("platform");
 
 const embed = new EmbedBuilder()
   .setColor("#a855f7")
-  .setTitle(`🎫 Ticket #${ticketNumber}`)
-  .setDescription(`Opened by ${interaction.user}`)
+  .setTitle(
+    `🎫 ${ticketType.toUpperCase()} TICKET #${ticketNumber}`
+  )
+  .setThumbnail(
+    interaction.user.displayAvatarURL()
+  )
   .addFields(
     {
-      name: "👤 User",
-      value: `<@${interaction.user.id}>`,
-      inline: true
-    },
-    {
-      name: "🎮 IGN",
-      value: ign,
-      inline: true
-    },
-    {
-      name: "💻 Platform",
-      value: platform,
-      inline: true
+      name: "👤 USER INFORMATION",
+      value:
+        `**Discord:** ${interaction.user}\n` +
+        `**IGN:** ${ign}\n` +
+        `**Platform:** ${platform}`
     }
-  );
+  )
+  .setFooter({
+    text: "Lunaris Craft Support System"
+  })
+  .setTimestamp();
+
+if (interaction.customId === "report_modal") {
+  embed.addFields({
+    name: "🚨 REPORT INFORMATION",
+    value:
+      `**Reported Player:** ${interaction.fields.getTextInputValue("reported")}\n` +
+      `**Reason:** ${interaction.fields.getTextInputValue("reason")}`
+  });
+}
+
+if (interaction.customId === "support_modal") {
+  embed.addFields({
+    name: "🛠️ SUPPORT INFORMATION",
+    value:
+      interaction.fields.getTextInputValue("issue")
+  });
+}
+
+if (interaction.customId === "purchase_modal") {
+  embed.addFields({
+    name: "🛒 PURCHASE INFORMATION",
+    value:
+      `**Product:** ${interaction.fields.getTextInputValue("product")}\n` +
+      `**Payment:** ${interaction.fields.getTextInputValue("payment")}`
+  });
+}
+
+embed.addFields({
+  name: "📌 STAFF INFORMATION",
+  value:
+    `**Claimed By:** Unclaimed\n` +
+    `**Status:** Open`
+});
+
+
+
 
 if (interaction.customId === "report_modal") {
   embed.addFields(
