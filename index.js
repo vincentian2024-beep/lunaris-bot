@@ -33,7 +33,7 @@ const PREFIX = "?";
 // CHANGE THIS TO YOUR WELCOME CHANNEL ID
 const WELCOME_CHANNEL = "1514594312166314145";
 const TICKET_CATEGORY = "1514630022336348251";
-const STAFF_ROLE_ID = "PUT_STAFF_ROLE_ID_HERE";
+const STAFF_ROLE_ID = "1514593895877578852";
 
 client.once("ready", () => {
   console.log(`${client.user.tag} is online!`);
