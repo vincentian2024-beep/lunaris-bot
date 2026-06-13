@@ -9,6 +9,7 @@ import {
 
 const TICKET_CATEGORY = "1514630022336348251";
 const STAFF_ROLE_ID = "1514593895877578852";
+let ticketCounter = 0;
 
 export async function handleTicketModal(interaction) {
   const ticketNumber = Date.now().toString().slice(-6);
