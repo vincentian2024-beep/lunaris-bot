@@ -31,6 +31,8 @@ const PREFIX = "?";
 
 // CHANGE THIS TO YOUR WELCOME CHANNEL ID
 const WELCOME_CHANNEL = "1514594312166314145";
+const TICKET_CATEGORY = "1514630022336348251";
+const STAFF_ROLE_ID = "PUT_STAFF_ROLE_ID_HERE";
 
 client.once("ready", () => {
   console.log(`${client.user.tag} is online!`);
@@ -92,19 +94,65 @@ if (aiHandled) return;
 }
 });
 
-client.on("interactionCreate", async (interaction) => {
+if (interaction.isModalSubmit()) {
+  const ticketNumber = Date.now().toString().slice(-6);
 
-  // MODAL SUBMIT
-  if (interaction.isModalSubmit()) {
-    console.log("Modal submitted:", interaction.customId);
+  let ticketType = "ticket";
 
-    return interaction.reply({
-      content: "✅ Modal received. Ticket creation coming next.",
-      ephemeral: true
-    });
+  if (interaction.customId === "report_modal") {
+    ticketType = "report";
   }
 
-  if (!interaction.isButton()) return;
+  if (interaction.customId === "support_modal") {
+    ticketType = "support";
+  }
+
+  if (interaction.customId === "purchase_modal") {
+    ticketType = "purchase";
+  }
+
+  const channel = await interaction.guild.channels.create({
+    name: `${ticketType}-${ticketNumber}`,
+    type: ChannelType.GuildText,
+    parent: TICKET_CATEGORY,
+
+    permissionOverwrites: [
+      {
+        id: interaction.guild.id,
+        deny: [PermissionFlagsBits.ViewChannel]
+      },
+
+      {
+        id: interaction.user.id,
+        allow: [
+          PermissionFlagsBits.ViewChannel,
+          PermissionFlagsBits.SendMessages,
+          PermissionFlagsBits.ReadMessageHistory
+        ]
+      },
+
+      {
+        id: STAFF_ROLE_ID,
+        allow: [
+          PermissionFlagsBits.ViewChannel,
+          PermissionFlagsBits.SendMessages,
+          PermissionFlagsBits.ReadMessageHistory
+        ]
+      }
+    ]
+  });
+
+  await interaction.reply({
+    content: `✅ Ticket created: ${channel}`,
+    ephemeral: true
+  });
+
+  await channel.send(
+    `🎫 Ticket #${ticketNumber}\nOpened by ${interaction.user}`
+  );
+
+  return;
+}
 
   // REPORT
   if (interaction.customId === "report") {
