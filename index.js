@@ -548,6 +548,70 @@ fs.writeFileSync(
     ephemeral: true
   });
 
+    const panelData =
+  JSON.parse(
+    fs.readFileSync(
+      "./data/panel.json",
+      "utf8"
+    )
+  );
+
+try {
+  const oldPanel =
+    await channel.messages.fetch(
+      panelData.messageId
+    );
+
+  await oldPanel.delete();
+} catch {}
+
+const panelEmbed =
+  new EmbedBuilder()
+    .setColor("#a855f7")
+    .setTitle(
+      "💡 Lunaris Suggestions"
+    )
+    .setDescription(
+      "Have an idea for Lunaris Craft?\n\nClick the button below to submit a suggestion."
+    )
+    .setFooter({
+      text:
+        "Lunaris Craft Suggestion System"
+    });
+
+const panelRow =
+  new ActionRowBuilder()
+    .addComponents(
+      new ButtonBuilder()
+        .setCustomId(
+          "open_suggestion"
+        )
+        .setLabel(
+          "Submit Suggestion"
+        )
+        .setEmoji("📨")
+        .setStyle(
+          ButtonStyle.Primary
+        )
+    );
+
+const newPanel =
+  await channel.send({
+    embeds: [panelEmbed],
+    components: [panelRow]
+  });
+
+fs.writeFileSync(
+  "./data/panel.json",
+  JSON.stringify(
+    {
+      messageId: newPanel.id
+    },
+    null,
+    2
+  )
+);
+
   return;
 }
 
