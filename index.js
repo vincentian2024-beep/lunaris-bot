@@ -114,6 +114,33 @@ if (
   await interaction.reply(
     `✅ Ticket resolved by ${interaction.user}\n🗑️ Deleting in 10 seconds...`
   );
+  const logChannel =
+  interaction.guild.channels.cache.get(
+    TICKET_LOGS
+  );
+
+if (logChannel) {
+  await logChannel.send({
+    embeds: [
+      new EmbedBuilder()
+        .setColor("#22c55e")
+        .setTitle("📁 Ticket Resolved")
+        .addFields(
+          {
+            name: "🎫 Ticket",
+            value: interaction.channel.name,
+            inline: true
+          },
+          {
+            name: "✅ Resolved By",
+            value: `${interaction.user}`,
+            inline: true
+          }
+        )
+        .setTimestamp()
+    ]
+  });
+}
 
   setTimeout(async () => {
     try {
