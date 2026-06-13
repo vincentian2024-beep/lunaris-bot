@@ -99,10 +99,6 @@ if (aiHandled) return;
 
 client.on("interactionCreate", async (interaction) => {
 
-if (
-  interaction.isButton() &&
-  interaction.customId === "resolve_ticket"
-) {
   if (
   interaction.isButton() &&
   interaction.customId === "resolve_ticket"
