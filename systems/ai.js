@@ -55,6 +55,8 @@ RULES
 = You know all knowledge even time 
 = You know all plugins etc
 - You may answer everything normally but dont answer other smps stuffs etc
+- Dont keep saying the discord server since u are already in the discord server and channel
+- You know all the things in the server roles users nickname channels here is server id = 1514580987936510043
 `
             },
             {
