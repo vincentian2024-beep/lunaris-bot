@@ -57,10 +57,30 @@ export async function handleTicketModal(interaction) {
     ]
   });
 
-  const embed = new EmbedBuilder()
-    .setColor("#a855f7")
-    .setTitle(`Ticket #${ticketNumber}`)
-    .setDescription(`Opened by ${interaction.user}`);
+const ign = interaction.fields.getTextInputValue("ign");
+const platform = interaction.fields.getTextInputValue("platform");
+
+const embed = new EmbedBuilder()
+  .setColor("#a855f7")
+  .setTitle(`🎫 Ticket #${ticketNumber}`)
+  .setDescription(`Opened by ${interaction.user}`)
+  .addFields(
+    {
+      name: "👤 User",
+      value: `<@${interaction.user.id}>`,
+      inline: true
+    },
+    {
+      name: "🎮 IGN",
+      value: ign,
+      inline: true
+    },
+    {
+      name: "💻 Platform",
+      value: platform,
+      inline: true
+    }
+  );
 
   const row = new ActionRowBuilder().addComponents(
     new ButtonBuilder()
