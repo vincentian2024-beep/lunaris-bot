@@ -103,7 +103,8 @@ client.on("interactionCreate", async (interaction) => {
 
 // MODAL SUBMITS
 if (interaction.isModalSubmit()) {
-  const ticketNumber = Date.now().toString().slice(-6);
+  ticketCounter++;
+const ticketNumber = ticketCounter;
 
   let ticketType = "ticket";
 
