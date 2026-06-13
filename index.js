@@ -63,7 +63,7 @@ client.on("messageCreate", async (message) => {
 ) {
   try {
     await message.startThread({
-      name: `🧵 ${message.author.username}'s Threads`,
+      name: ` ${message.author.username}'s Threads`,
       autoArchiveDuration: 1440
     });
   } catch (err) {
