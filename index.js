@@ -208,4 +208,6 @@ if (interaction.customId === "support") {
   return interaction.showModal(modal);
 }
 
+}); 
+
 client.login(process.env.DISCORD_TOKEN);
