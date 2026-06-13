@@ -7,6 +7,25 @@ import {
   ButtonStyle
 } from "discord.js";
 
+const SUGGESTIONS_FILE =
+  "./data/suggestions.json";
+
+function loadSuggestions() {
+  return JSON.parse(
+    fs.readFileSync(
+      SUGGESTIONS_FILE,
+      "utf8"
+    )
+  );
+}
+
+function saveSuggestions(data) {
+  fs.writeFileSync(
+    SUGGESTIONS_FILE,
+    JSON.stringify(data, null, 2)
+  );
+}
+
 export async function createSuggestion(
   interaction,
   suggestion,
