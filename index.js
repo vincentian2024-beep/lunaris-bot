@@ -28,6 +28,8 @@ client.once("ready", () => {
 });
 
 client.on("guildMemberAdd", async (member) => {
+  await addAutoRole(member);
+
   const channel = member.guild.channels.cache.get(WELCOME_CHANNEL);
 
   if (!channel) return;
