@@ -1,3 +1,4 @@
+```js
 import OpenAI from "openai";
 
 const openai = new OpenAI({
@@ -7,25 +8,42 @@ const openai = new OpenAI({
 const AI_CHANNEL = "1515185455543619706";
 
 export async function handleAI(message) {
-  if (message.channel.id !== AI_CHANNEL) return false;
+  try {
+    console.log("AI received:", message.content);
 
-  const response = await openai.chat.completions.create({
-    model: "gpt-4.1-mini",
-    messages: [
-      {
-        role: "system",
-        content: "You are Lunaris AI."
-      },
-      {
-        role: "user",
-        content: message.content
-      }
-    ]
-  });
+    if (message.channel.id !== AI_CHANNEL) return false;
 
-  await message.reply(
-    response.choices[0].message.content
-  );
+    await message.channel.sendTyping();
 
-  return true;
+    const response = await openai.chat.completions.create({
+      model: "gpt-4.1-mini",
+      messages: [
+        {
+          role: "system",
+          content: "You are Lunaris AI, a helpful assistant."
+        },
+        {
+          role: "user",
+          content: message.content
+        }
+      ]
+    });
+
+    const reply =
+      response?.choices?.[0]?.message?.content ||
+      "No response received.";
+
+    await message.reply(reply);
+
+    return true;
+  } catch (error) {
+    console.error("OPENAI ERROR:", error);
+
+    await message.reply(
+      "❌ AI Error. Check Railway logs."
+    );
+
+    return true;
+  }
 }
+```
