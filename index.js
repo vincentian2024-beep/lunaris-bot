@@ -133,27 +133,6 @@ const transcript = messages
   )
   .join("\n");
 
-  const messages =
-  await interaction.channel.messages.fetch({
-    limit: 500
-  });
-
-  const transcriptFile =
-  new AttachmentBuilder(
-    Buffer.from(transcript, "utf8"),
-    {
-      name: `${interaction.channel.name}-transcript.txt`
-    }
-  );
-
-const transcript = messages
-  .reverse()
-  .map(
-    msg =>
-      `[${msg.createdAt.toLocaleString()}] ${msg.author.tag}: ${msg.content || "[Attachment]"}`
-  )
-  .join("\n");
-
 if (logChannel) {
   await logChannel.send({
   embeds: [
