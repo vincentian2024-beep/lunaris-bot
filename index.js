@@ -345,8 +345,17 @@ if (
     );
 
   const msg = await channel.send(
-    suggestionData
-  );
+  suggestionData
+);
+
+const row = new ActionRowBuilder()
+.addComponents(
+  new ButtonBuilder()
+    .setCustomId(`suggest_manage_${msg.id}`)
+    .setLabel("Manage")
+    .setEmoji("⚙️")
+    .setStyle(ButtonStyle.Secondary)
+);
 
   await msg.startThread({
     name: `🌙 Discussion`,
