@@ -5,6 +5,7 @@ import {
 } from "discord.js";
 
 import { pingCommand } from "./commands/ping.js";
+import { addAutoRole } from "./systems/autorole.js";
 
 const client = new Client({
   intents: [
@@ -13,6 +14,8 @@ const client = new Client({
     GatewayIntentBits.GuildMessages,
     GatewayIntentBits.MessageContent
   ]
+
+import { pingCommand } from "./commands/ping.js";
 });
 
 const PREFIX = "?";
