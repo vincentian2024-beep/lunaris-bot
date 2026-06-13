@@ -1,3 +1,4 @@
+```js
 const AUTO_ROLE = "1514629293576290415";
 
 export async function addAutoRole(member) {
@@ -11,3 +12,4 @@ export async function addAutoRole(member) {
     console.error("Autorole Error:", error);
   }
 }
+```
