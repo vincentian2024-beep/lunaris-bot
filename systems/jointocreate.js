@@ -55,5 +55,5 @@ export async function handleJoinToCreate(
 export async function handleVCButtons(
   interaction
 ) {
-
+  return;
 }
