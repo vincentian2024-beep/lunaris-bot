@@ -1,4 +1,3 @@
-```js
 import {
   Client,
   GatewayIntentBits,
@@ -16,41 +15,23 @@ const client = new Client({
 
 const PREFIX = "?";
 
-// Lunaris Settings
-const WELCOME_CHANNEL = "1514594312166314145";
-const AUTO_ROLE = "1514629293576290415";
+// CHANGE THIS TO YOUR WELCOME CHANNEL ID
+const WELCOME_CHANNEL = "PUT_CHANNEL_ID_HERE";
 
 client.once("ready", () => {
   console.log(`${client.user.tag} is online!`);
 });
 
-// Welcome + Auto Role
 client.on("guildMemberAdd", async (member) => {
-  try {
-    // Auto Role
-    const role = member.guild.roles.cache.get(AUTO_ROLE);
+  const channel = member.guild.channels.cache.get(WELCOME_CHANNEL);
 
-    if (role) {
-      await member.roles.add(role);
-    }
+  if (!channel) return;
 
-    // Welcome Message
-    const channel = member.guild.channels.cache.get(WELCOME_CHANNEL);
-
-    if (!channel) return;
-
-    await channel.send(
-      `🌙 Welcome to **Lunaris Craft**, ${member}!`
-    );
-  } catch (error) {
-    console.error("GuildMemberAdd Error:", error);
-  }
+  channel.send(`🌙 Welcome to **Lunaris Craft**, ${member}!`);
 });
 
-// Commands
 client.on("messageCreate", async (message) => {
   if (message.author.bot) return;
-  if (!message.guild) return;
   if (!message.content.startsWith(PREFIX)) return;
 
   const args = message.content.slice(PREFIX.length).trim().split(/ +/);
@@ -63,33 +44,23 @@ client.on("messageCreate", async (message) => {
         PermissionsBitField.Flags.Administrator
       )
     ) {
-      return message.reply(
-        "❌ You need Administrator permission."
-      );
+      return message.reply("❌ You need Administrator permission.");
     }
 
     const user = message.mentions.users.first();
 
     if (!user) {
-      return message.reply(
-        "Usage: ?testwelcome @user"
-      );
+      return message.reply("Usage: `?testwelcome @user`");
     }
 
-    const channel =
-      message.guild.channels.cache.get(WELCOME_CHANNEL);
+    const channel = message.guild.channels.cache.get(WELCOME_CHANNEL);
 
     if (!channel) {
-      return message.reply(
-        "❌ Welcome channel not found."
-      );
+      return message.reply("❌ Welcome channel not found.");
     }
 
-    return channel.send(
-      `🌙 Welcome to **Lunaris Craft**, <@${user.id}>!`
-    );
+    channel.send(`🌙 Welcome to **Lunaris Craft**, <@${user.id}>!`);
   }
 });
 
 client.login(process.env.DISCORD_TOKEN);
-```
