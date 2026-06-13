@@ -69,4 +69,72 @@ client.on("messageCreate", async (message) => {
   }
 });
 
+if (command === "ticketpanel") {
+  const embed = new EmbedBuilder()
+    .setColor("#a855f7")
+    .setTitle("🎫 Ticket")
+    .setDescription(
+      "🌙 Welcome to the Lunaris Craft Ticket Center\nNeed assistance? Open a ticket and our staff team will help you as soon as possible."
+    )
+    .setFooter({
+      text: "Lunaris Craft • Support System"
+    });
+
+  const row = new ActionRowBuilder().addComponents(
+    new ButtonBuilder()
+      .setCustomId("report")
+      .setLabel("Player Report")
+      .setStyle(ButtonStyle.Danger),
+
+    new ButtonBuilder()
+      .setCustomId("purchase")
+      .setLabel("Purchase")
+      .setStyle(ButtonStyle.Success),
+
+    new ButtonBuilder()
+      .setCustomId("support")
+      .setLabel("Support")
+      .setStyle(ButtonStyle.Primary)
+  );
+
+  return message.channel.send({
+    embeds: [embed],
+    components: [row]
+  });
+}
+
+client.on("interactionCreate", async interaction => {
+  if (!interaction.isButton()) return;
+
+  const categoryId = "1514630022336348251";
+
+  const channel = await interaction.guild.channels.create({
+    name: `ticket-${interaction.user.username}`,
+    type: ChannelType.GuildText,
+    parent: categoryId,
+    permissionOverwrites: [
+      {
+        id: interaction.guild.id,
+        deny: [PermissionFlagsBits.ViewChannel]
+      },
+      {
+        id: interaction.user.id,
+        allow: [
+          PermissionFlagsBits.ViewChannel,
+          PermissionFlagsBits.SendMessages
+        ]
+      }
+    ]
+  });
+
+  await channel.send(
+    `🎫 Welcome ${interaction.user}, please explain your issue.`
+  );
+
+  await interaction.reply({
+    content: `✅ Ticket created: ${channel}`,
+    ephemeral: true
+  });
+});
+
 client.login(process.env.DISCORD_TOKEN);
