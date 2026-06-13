@@ -8,7 +8,7 @@ import {
   ButtonBuilder,
   ButtonStyle
 } from "discord.js";
-
+f
 const TICKET_CATEGORY = "1514630022336348251";
 const STAFF_ROLE_ID = "1514593895877578852";
 
@@ -31,24 +31,6 @@ const data = loadData();
 
 export async function handleTicketModal(interaction) {
 let ticketNumber;
-
-if (interaction.customId === "report_modal") {
-data.reportCounter++;
-ticketNumber = data.reportCounter;
-saveData(data);
-}
-
-if (interaction.customId === "support_modal") {
-data.supportCounter++;
-ticketNumber = data.supportCounter;
-saveData(data);
-}
-
-if (interaction.customId === "purchase_modal") {
-data.purchaseCounter++;
-ticketNumber = data.purchaseCounter;
-saveData(data);
-}
 
   let ticketType = "ticket";
 
@@ -76,6 +58,24 @@ if (existingTicket) {
     content: `❌ You already have an open ${ticketType} ticket: ${existingTicket}`,
     ephemeral: true
   });
+}
+
+  if (interaction.customId === "report_modal") {
+data.reportCounter++;
+ticketNumber = data.reportCounter;
+saveData(data);
+}
+
+if (interaction.customId === "support_modal") {
+data.supportCounter++;
+ticketNumber = data.supportCounter;
+saveData(data);
+}
+
+if (interaction.customId === "purchase_modal") {
+data.purchaseCounter++;
+ticketNumber = data.purchaseCounter;
+saveData(data);
 }
 
   const channel = await interaction.guild.channels.create({
