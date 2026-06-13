@@ -140,28 +140,15 @@ if (interaction.customId === "purchase_modal") {
   });
 }
 
-embed.addFields({
-  name: "📌 STAFF INFORMATION",
-  value:
-    `**Claimed By:** Unclaimed\n` +
-    `**Status:** Open`
-});
-
-
-
-
-if (interaction.customId === "report_modal") {
-  embed.addFields(
-    {
-      name: "🚨 Reported Player",
-      value: interaction.fields.getTextInputValue("reported")
-    },
-    {
-      name: "📝 Reason",
-      value: interaction.fields.getTextInputValue("reason")
-    }
-  );
-}
+embed.addFields(
+  {
+    name: "📌 STAFF INFORMATION",
+    value:
+      `**Claimed By:** Unclaimed\n` +
+      `**Status:** Open`,
+    inline: true
+  }
+);
 
 if (interaction.customId === "support_modal") {
   embed.addFields({
