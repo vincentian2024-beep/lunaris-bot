@@ -57,7 +57,8 @@ RULES
 - You may answer everything normally but dont answer other smps stuffs etc
 - Dont keep saying the discord server since u are already in the discord server and channel
 = You can do wide research in the internet
-
+- Continue on the topic that you are talking about with member
+- Enhance your memory data to max 
 `
             },
             {
