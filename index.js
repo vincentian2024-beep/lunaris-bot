@@ -1,3 +1,5 @@
+import fs from "fs";
+
 import {
   Client,
   GatewayIntentBits,
@@ -124,22 +126,187 @@ client.on("interactionCreate", async (interaction) => {
   interaction.isButton() &&
   interaction.customId === "suggest_upvote"
 ) {
-  return interaction.reply({
-    content: "👍 Upvoted!",
-    ephemeral: true
-  });
-}
+  const data =
+    JSON.parse(
+      fs.readFileSync(
+        "./data/suggestions.json",
+        "utf8"
+      )
+    );
 
-if (
+  const suggestion =
+    data[interaction.message.id];
+
+  if (!suggestion)
+    return interaction.reply({
+      content:
+        "Suggestion data missing.",
+      ephemeral: true
+    });
+
+  suggestion.downvotes =
+    suggestion.downvotes.filter(
+      id =>
+        id !== interaction.user.id
+    );
+
+  if (
+    !suggestion.upvotes.includes(
+      interaction.user.id
+    )
+  ) {
+    suggestion.upvotes.push(
+      interaction.user.id
+    );
+  }
+
+  fs.writeFileSync(
+    "./data/suggestions.json",
+    JSON.stringify(
+      data,
+      null,
+      2
+    )
+  );
+
+  const embed =
+    EmbedBuilder.from(
+      interaction.message.embeds[0]
+    );
+
+  embed.spliceFields(
+    3,
+    1,
+    {
+      name: "📈 Votes",
+      value:
+        `👍 ${suggestion.upvotes.length} | 👎 ${suggestion.downvotes.length}`
+    }
+  );
+
+    if (
   interaction.isButton() &&
   interaction.customId === "suggest_downvote"
 ) {
-  return interaction.reply({
-    content: "👎 Downvoted!",
-    ephemeral: true
+  const data =
+    JSON.parse(
+      fs.readFileSync(
+        "./data/suggestions.json",
+        "utf8"
+      )
+    );
+
+  const suggestion =
+    data[interaction.message.id];
+
+  if (!suggestion)
+    return interaction.reply({
+      content:
+        "Suggestion data missing.",
+      ephemeral: true
+    });
+
+  suggestion.upvotes =
+    suggestion.upvotes.filter(
+      id =>
+        id !== interaction.user.id
+    );
+
+  if (
+    !suggestion.downvotes.includes(
+      interaction.user.id
+    )
+  ) {
+    suggestion.downvotes.push(
+      interaction.user.id
+    );
+  }
+
+  fs.writeFileSync(
+    "./data/suggestions.json",
+    JSON.stringify(
+      data,
+      null,
+      2
+    )
+  );
+
+  const embed =
+    EmbedBuilder.from(
+      interaction.message.embeds[0]
+    );
+
+  embed.spliceFields(
+    3,
+    1,
+    {
+      name: "📈 Votes",
+      value:
+        `👍 ${suggestion.upvotes.length} | 👎 ${suggestion.downvotes.length}`
+    }
+  );
+
+  const row1 =
+    new ActionRowBuilder()
+      .addComponents(
+        new ButtonBuilder()
+          .setCustomId("suggest_upvote")
+          .setLabel(
+            `👍 ${suggestion.upvotes.length}`
+          )
+          .setStyle(ButtonStyle.Success),
+
+        new ButtonBuilder()
+          .setCustomId("suggest_downvote")
+          .setLabel(
+            `👎 ${suggestion.downvotes.length}`
+          )
+          .setStyle(ButtonStyle.Danger)
+      );
+
+  const row2 =
+    interaction.message.components[1];
+
+  return interaction.update({
+    embeds: [embed],
+    components: [row1, row2]
   });
 }
 
+  const row1 =
+    new ActionRowBuilder()
+      .addComponents(
+        new ButtonBuilder()
+          .setCustomId(
+            "suggest_upvote"
+          )
+          .setLabel(
+            `👍 ${suggestion.upvotes.length}`
+          )
+          .setStyle(
+            ButtonStyle.Success
+          ),
+
+        new ButtonBuilder()
+          .setCustomId(
+            "suggest_downvote"
+          )
+          .setLabel(
+            `👎 ${suggestion.downvotes.length}`
+          )
+          .setStyle(
+            ButtonStyle.Danger
+          )
+      );
+
+  const row2 =
+    interaction.message.components[1];
+
+  return interaction.update({
+    embeds: [embed],
+    components: [row1, row2]
+  });
+}
   if (
   interaction.isButton() &&
   interaction.customId === "resolve_ticket"
@@ -346,6 +513,28 @@ if (
 
   const msg = await channel.send(
   suggestionData
+);
+
+const suggestions =
+  JSON.parse(
+    fs.readFileSync(
+      "./data/suggestions.json",
+      "utf8"
+    )
+  );
+
+suggestions[msg.id] = {
+  upvotes: [],
+  downvotes: []
+};
+
+fs.writeFileSync(
+  "./data/suggestions.json",
+  JSON.stringify(
+    suggestions,
+    null,
+    2
+  )
 );
 
   await msg.startThread({
