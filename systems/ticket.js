@@ -8,7 +8,7 @@ import {
   ButtonBuilder,
   ButtonStyle
 } from "discord.js";
-f
+
 const TICKET_CATEGORY = "1514630022336348251";
 const STAFF_ROLE_ID = "1514593895877578852";
 
