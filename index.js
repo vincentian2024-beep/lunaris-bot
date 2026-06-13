@@ -370,6 +370,52 @@ if (interaction.isModalSubmit()) {
 
   if (
   interaction.isButton() &&
+  interaction.customId === "suggest_manage"
+) {
+
+  if (
+    !interaction.member.roles.cache.has(
+      STAFF_ROLE_ID
+    )
+  ) {
+    return interaction.reply({
+      content: "❌ Staff only.",
+      ephemeral: true
+    });
+  }
+
+  const row =
+    new ActionRowBuilder()
+      .addComponents(
+        new ButtonBuilder()
+          .setCustomId("suggest_accept")
+          .setLabel("Accept")
+          .setEmoji("✅")
+          .setStyle(ButtonStyle.Success),
+
+        new ButtonBuilder()
+          .setCustomId("suggest_deny")
+          .setLabel("Deny")
+          .setEmoji("❌")
+          .setStyle(ButtonStyle.Danger),
+
+        new ButtonBuilder()
+          .setCustomId("suggest_implemented")
+          .setLabel("Implemented")
+          .setEmoji("🚀")
+          .setStyle(ButtonStyle.Primary)
+      );
+
+  return interaction.reply({
+    content:
+      "⚙️ Manage Suggestion",
+    components: [row],
+    ephemeral: true
+  });
+}
+  
+  if (
+  interaction.isButton() &&
   interaction.customId === "open_suggestion"
 ) {
   const modal = new ModalBuilder()
