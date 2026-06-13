@@ -162,61 +162,6 @@ client.on("interactionCreate", async (interaction) => {
     });
   }
 
-  await interaction.reply(
-    `✅ Ticket resolved by ${interaction.user}\n🗑️ Deleting in 10 seconds...`
-  );
-  const logChannel =
-  interaction.guild.channels.cache.get(
-    TICKET_LOGS
-  );
-
-  const messages =
-  await interaction.channel.messages.fetch({
-    limit: 100
-  });
-
-const transcript = messages
-  .reverse()
-  .map(
-    msg =>
-      `[${msg.createdAt.toLocaleString()}] ${msg.author.tag}: ${msg.content || "[Attachment]"}`
-  )
-  .join("\n");
-
-if (logChannel) {
-  await logChannel.send({
-  embeds: [
-    new EmbedBuilder()
-      .setColor("#22c55e")
-      .setTitle("📁 Ticket Resolved")
-      .addFields(
-        {
-          name: "🎫 Ticket",
-          value: interaction.channel.name,
-          inline: true
-        },
-        {
-          name: "✅ Resolved By",
-          value: `${interaction.user}`,
-          inline: true
-        }
-      )
-      .setTimestamp()
-  ],
-  files: [transcriptFile]
-});
-
-  setTimeout(async () => {
-    try {
-      await interaction.channel.delete();
-    } catch (err) {
-      console.error(err);
-    }
-  }, 10000);
-
-  return;
-}
-
   if (
   interaction.isButton() &&
   interaction.customId === "claim_ticket"
