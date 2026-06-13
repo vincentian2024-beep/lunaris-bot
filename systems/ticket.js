@@ -82,6 +82,39 @@ const embed = new EmbedBuilder()
     }
   );
 
+if (interaction.customId === "report_modal") {
+  embed.addFields(
+    {
+      name: "🚨 Reported Player",
+      value: interaction.fields.getTextInputValue("reported")
+    },
+    {
+      name: "📝 Reason",
+      value: interaction.fields.getTextInputValue("reason")
+    }
+  );
+}
+
+if (interaction.customId === "support_modal") {
+  embed.addFields({
+    name: "🛠️ Issue",
+    value: interaction.fields.getTextInputValue("issue")
+  });
+}
+
+if (interaction.customId === "purchase_modal") {
+  embed.addFields(
+    {
+      name: "🛒 Product",
+      value: interaction.fields.getTextInputValue("product")
+    },
+    {
+      name: "💳 Payment Method",
+      value: interaction.fields.getTextInputValue("payment")
+    }
+  );
+}
+
   const row = new ActionRowBuilder().addComponents(
     new ButtonBuilder()
       .setCustomId("close_ticket")
