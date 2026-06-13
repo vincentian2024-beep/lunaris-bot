@@ -169,25 +169,6 @@ if (
   return handleTicketModal(interaction);
 }
 
-// MODAL SUBMITS
-if (interaction.isModalSubmit()) {
-ticketCounter++;
-const ticketNumber = ticketCounter;
-
-  let ticketType = "ticket";
-
-  if (interaction.customId === "report_modal") {
-    ticketType = "report";
-  }
-
-  if (interaction.customId === "support_modal") {
-    ticketType = "support";
-  }
-
-  if (interaction.customId === "purchase_modal") {
-    ticketType = "purchase";
-  }
-
   const ticketChannel = await interaction.guild.channels.create({
     name: `${ticketType}-${ticketNumber}`,
     type: ChannelType.GuildText,
@@ -198,6 +179,7 @@ const ticketNumber = ticketCounter;
         id: interaction.guild.id,
         deny: [PermissionFlagsBits.ViewChannel]
       },
+      
       {
         id: interaction.user.id,
         allow: [
