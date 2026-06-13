@@ -10,11 +10,27 @@ import {
 const TICKET_CATEGORY = "1514630022336348251";
 const STAFF_ROLE_ID = "1514593895877578852";
 
-let ticketCounter = 0;
+let reportCounter = 0;
+let supportCounter = 0;
+let purchaseCounter = 0;
 
 export async function handleTicketModal(interaction) {
-ticketCounter++;
-const ticketNumber = ticketCounter;
+let ticketNumber;
+
+if (interaction.customId === "report_modal") {
+  reportCounter++;
+  ticketNumber = reportCounter;
+}
+
+if (interaction.customId === "support_modal") {
+  supportCounter++;
+  ticketNumber = supportCounter;
+}
+
+if (interaction.customId === "purchase_modal") {
+  purchaseCounter++;
+  ticketNumber = purchaseCounter;
+}
 
   let ticketType = "ticket";
 
