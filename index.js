@@ -65,13 +65,19 @@ client.on(
   }
 );
 
+client.on("guildMemberAdd", async (member) => {
   await addAutoRole(member);
 
-  const channel = member.guild.channels.cache.get(WELCOME_CHANNEL);
+  const channel =
+    member.guild.channels.cache.get(
+      WELCOME_CHANNEL
+    );
 
   if (!channel) return;
 
-  channel.send(`🌙 Welcome to **Lunaris Craft**, ${member}!`);
+  channel.send(
+    `🌙 Welcome to **Lunaris Craft**, ${member}!`
+  );
 });
 
 client.on("messageCreate", async (message) => {
