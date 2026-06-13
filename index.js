@@ -95,6 +95,26 @@ if (aiHandled) return;
 }
 });
 
+if (
+  interaction.isButton() &&
+  interaction.customId === "close_ticket"
+) {
+  await interaction.reply({
+    content: "🔒 Closing ticket in 5 seconds...",
+    ephemeral: false
+  });
+
+  setTimeout(async () => {
+    try {
+      await interaction.channel.delete();
+    } catch (err) {
+      console.error(err);
+    }
+  }, 5000);
+
+  return;
+}
+
 client.on("interactionCreate", async (interaction) => {
 
   if (interaction.isModalSubmit()) {
