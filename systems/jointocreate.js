@@ -1,5 +1,9 @@
 import fs from "fs";
 
+import {
+  ChannelType
+} from "discord.js";
+
 const JTC_CHANNEL = "1514875884975423518";
 const VC_CATEGORY = "1514630686630346945";
 
@@ -22,7 +26,30 @@ export async function handleJoinToCreate(
   oldState,
   newState
 ) {
+  if (
+    newState.channelId !== JTC_CHANNEL
+  ) return;
 
+  const member = newState.member;
+
+  const channel =
+    await newState.guild.channels.create({
+      name: `🎙️ ${member.user.username}'s Room`,
+      type: ChannelType.GuildVoice,
+      parent: VC_CATEGORY
+    });
+
+  await member.voice.setChannel(
+    channel
+  );
+
+  const data = loadData();
+
+  data[channel.id] = {
+    owner: member.id
+  };
+
+  saveData(data);
 }
 
 export async function handleVCButtons(
