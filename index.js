@@ -298,11 +298,192 @@ if (
   return;
 }
 
-  if (interaction.isModalSubmit()) {
+  if (
+  interaction.isModalSubmit() &&
+  interaction.customId === "suggestion_modal"
+) {
+  const suggestion =
+    interaction.fields.getTextInputValue(
+      "suggestion"
+    );
+
+  const reason =
+    interaction.fields.getTextInputValue(
+      "reason"
+    );
+
+  const channel =
+    interaction.guild.channels.cache.get(
+      SUGGESTION_CHANNEL
+    );
+
+  const suggestionData =
+    await createSuggestion(
+      interaction,
+      suggestion,
+      reason
+    );
+
+  const msg = await channel.send(
+    suggestionData
+  );
+
+  await msg.startThread({
+    name: `🌙 Discussion`,
+    autoArchiveDuration: 1440
+  });
+
+  await interaction.reply({
+    content:
+      "✅ Suggestion submitted successfully.",
+    ephemeral: true
+  });
+
+  return;
+}
+
+if (interaction.isModalSubmit()) {
   return handleTicketModal(interaction);
 }
 
   if (!interaction.isButton()) return;
+
+  if (
+  interaction.isButton() &&
+  interaction.customId === "open_suggestion"
+) {
+  const modal = new ModalBuilder()
+    .setCustomId("suggestion_modal")
+    .setTitle("Lunaris Suggestion");
+
+  const suggestion =
+    new TextInputBuilder()
+      .setCustomId("suggestion")
+      .setLabel("Your Suggestion")
+      .setStyle(
+        TextInputStyle.Paragraph
+      )
+      .setRequired(true);
+
+  const reason =
+    new TextInputBuilder()
+      .setCustomId("reason")
+      .setLabel("Reason")
+      .setStyle(
+        TextInputStyle.Paragraph
+      )
+      .setRequired(true);
+
+  modal.addComponents(
+    new ActionRowBuilder().addComponents(
+      suggestion
+    ),
+    new ActionRowBuilder().addComponents(
+      reason
+    )
+  );
+
+  return interaction.showModal(modal);
+}
+
+  if (
+  interaction.isButton() &&
+  interaction.customId === "suggest_accept"
+) {
+  if (
+    !interaction.member.roles.cache.has(
+      STAFF_ROLE_ID
+    )
+  )
+    return;
+
+  const embed =
+    EmbedBuilder.from(
+      interaction.message.embeds[0]
+    );
+
+  embed.spliceFields(
+    2,
+    1,
+    {
+      name: "📊 Status",
+      value:
+        "✅ Accepted by Lunaris Staff"
+    }
+  );
+
+  await interaction.update({
+    embeds: [embed]
+  });
+
+  return;
+}
+
+if (
+  interaction.isButton() &&
+  interaction.customId === "suggest_deny"
+) {
+  if (
+    !interaction.member.roles.cache.has(
+      STAFF_ROLE_ID
+    )
+  )
+    return;
+
+  const embed =
+    EmbedBuilder.from(
+      interaction.message.embeds[0]
+    );
+
+  embed.spliceFields(
+    2,
+    1,
+    {
+      name: "📊 Status",
+      value:
+        "❌ Denied by Lunaris Staff"
+    }
+  );
+
+  await interaction.update({
+    embeds: [embed]
+  });
+
+  return;
+}
+
+if (
+  interaction.isButton() &&
+  interaction.customId === "suggest_implemented"
+) {
+  if (
+    !interaction.member.roles.cache.has(
+      STAFF_ROLE_ID
+    )
+  )
+    return;
+
+  const embed =
+    EmbedBuilder.from(
+      interaction.message.embeds[0]
+    );
+
+  embed.spliceFields(
+    2,
+    1,
+    {
+      name: "📊 Status",
+      value:
+        "🚀 Implemented"
+    }
+  );
+
+  await interaction.update({
+    embeds: [embed]
+  });
+
+  return;
+}
 
   // REPORT
   if (interaction.customId === "report") {
