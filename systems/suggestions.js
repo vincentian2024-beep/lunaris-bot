@@ -55,22 +55,10 @@ export async function createSuggestion(
         .setStyle(ButtonStyle.Danger),
 
       new ButtonBuilder()
-        .setCustomId("suggest_accept")
-        .setLabel("Accept")
-        .setEmoji("✅")
-        .setStyle(ButtonStyle.Success),
-
-      new ButtonBuilder()
-        .setCustomId("suggest_deny")
-        .setLabel("Deny")
-        .setEmoji("❌")
-        .setStyle(ButtonStyle.Danger),
-
-      new ButtonBuilder()
-        .setCustomId("suggest_implemented")
-        .setLabel("Implement")
-        .setEmoji("🚀")
-        .setStyle(ButtonStyle.Primary)
+        .setCustomId("suggest_manage")
+        .setLabel("Manage")
+        .setEmoji("⚙️")
+        .setStyle(ButtonStyle.Secondary)
     );
 
   return {
