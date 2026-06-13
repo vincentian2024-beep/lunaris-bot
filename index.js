@@ -125,7 +125,7 @@ if (
   return;
 }
 
-if (
+  if (
   interaction.isButton() &&
   interaction.customId === "claim_ticket"
 ) {
@@ -135,6 +135,66 @@ if (
     return interaction.reply({
       content: "❌ Only staff can claim tickets.",
       ephemeral: true
+    });
+  }
+
+  if (interaction.channel.topic) {
+    return interaction.reply({
+      content: "❌ This ticket is already claimed.",
+      ephemeral: true
+    });
+  }
+
+  await interaction.channel.setTopic(interaction.user.id);
+
+  const messages = await interaction.channel.messages.fetch({
+    limit: 20
+  });
+
+  const ticketMessage = messages.find(
+    m =>
+      m.author.id === interaction.client.user.id &&
+      m.embeds.length > 0
+  );
+
+  if (ticketMessage) {
+    const embed = EmbedBuilder.from(
+      ticketMessage.embeds[0]
+    );
+
+    const staffField = embed.data.fields.find(
+      field => field.name === "📌 STAFF INFORMATION"
+    );
+
+    if (staffField) {
+      staffField.value =
+        `**Claimed By:** ${interaction.user}\n` +
+        `**Status:** In Progress`;
+    }
+
+    const row = new ActionRowBuilder().addComponents(
+      new ButtonBuilder()
+        .setCustomId("claim_ticket")
+        .setLabel(`Claimed by ${interaction.user.username}`)
+        .setStyle(ButtonStyle.Secondary)
+        .setDisabled(true),
+
+      new ButtonBuilder()
+        .setCustomId("resolve_ticket")
+        .setLabel("Resolve Ticket")
+        .setEmoji("✅")
+        .setStyle(ButtonStyle.Success),
+
+      new ButtonBuilder()
+        .setCustomId("close_ticket")
+        .setLabel("Close Ticket")
+        .setEmoji("🔒")
+        .setStyle(ButtonStyle.Danger)
+    );
+
+    await ticketMessage.edit({
+      embeds: [embed],
+      components: [row]
     });
   }
 
