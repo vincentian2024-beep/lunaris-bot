@@ -104,6 +104,10 @@ if (
   interaction.customId === "resolve_ticket"
 ) {
   if (
+  interaction.isButton() &&
+  interaction.customId === "resolve_ticket"
+) {
+  if (
     !interaction.member.roles.cache.has(STAFF_ROLE_ID)
   ) {
     return interaction.reply({
@@ -111,6 +115,71 @@ if (
       ephemeral: true
     });
   }
+
+  const logChannel =
+    interaction.guild.channels.cache.get(
+      TICKET_LOGS
+    );
+
+  const messages =
+    await interaction.channel.messages.fetch({
+      limit: 100
+    });
+
+  const transcript = messages
+    .reverse()
+    .map(
+      msg =>
+        `[${msg.createdAt.toLocaleString()}] ${msg.author.tag}: ${msg.content || "[Attachment]"}`
+    )
+    .join("\n");
+
+  const transcriptFile =
+    new AttachmentBuilder(
+      Buffer.from(transcript, "utf8"),
+      {
+        name: `${interaction.channel.name}-transcript.txt`
+      }
+    );
+
+  if (logChannel) {
+    await logChannel.send({
+      embeds: [
+        new EmbedBuilder()
+          .setColor("#22c55e")
+          .setTitle("📁 Ticket Resolved")
+          .addFields(
+            {
+              name: "🎫 Ticket",
+              value: interaction.channel.name,
+              inline: true
+            },
+            {
+              name: "✅ Resolved By",
+              value: `${interaction.user}`,
+              inline: true
+            }
+          )
+          .setTimestamp()
+      ],
+      files: [transcriptFile]
+    });
+  }
+
+  await interaction.reply({
+    content: `✅ Ticket resolved by ${interaction.user}\n🗑️ Deleting in 10 seconds...`
+  });
+
+  setTimeout(async () => {
+    try {
+      await interaction.channel.delete();
+    } catch (err) {
+      console.error(err);
+    }
+  }, 10000);
+
+  return;
+}
 
   await interaction.reply(
     `✅ Ticket resolved by ${interaction.user}\n🗑️ Deleting in 10 seconds...`
