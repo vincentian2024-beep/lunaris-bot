@@ -34,7 +34,8 @@ const client = new Client({
     GatewayIntentBits.Guilds,
     GatewayIntentBits.GuildMembers,
     GatewayIntentBits.GuildMessages,
-    GatewayIntentBits.MessageContent
+    GatewayIntentBits.MessageContent,
+    GatewayIntentBits.GuildVoiceStates
   ]
 });
 
@@ -53,6 +54,30 @@ const VC_CATEGORY = "1514630686630346945";
 client.once("ready", () => {
   console.log(`${client.user.tag} is online!`);
 });
+
+client.on(
+  "voiceStateUpdate",
+  async (oldState, newState) => {
+    await handleJoinToCreate(
+      oldState,
+      newState
+    );
+  }
+);
+
+client.on("guildMemberAdd", async (member) => {
+
+client.on(
+  "voiceStateUpdate",
+  async (oldState, newState) => {
+    await handleJoinToCreate(
+      oldState,
+      newState
+    );
+  }
+);
+
+client.on("guildMemberAdd", async (member) => {
 
 client.on("guildMemberAdd", async (member) => {
   await addAutoRole(member);
