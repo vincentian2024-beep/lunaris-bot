@@ -46,6 +46,20 @@ if (interaction.customId === "purchase_modal") {
     ticketType = "purchase";
   }
 
+const existingTicket = interaction.guild.channels.cache.find(
+  channel =>
+    channel.parentId === TICKET_CATEGORY &&
+    channel.name.startsWith(ticketType) &&
+    channel.permissionOverwrites.cache.has(interaction.user.id)
+);
+
+if (existingTicket) {
+  return interaction.reply({
+    content: `❌ You already have an open ${ticketType} ticket: ${existingTicket}`,
+    ephemeral: true
+  });
+}
+
   const channel = await interaction.guild.channels.create({
     name: `${ticketType}-${ticketNumber}`,
     type: ChannelType.GuildText,
