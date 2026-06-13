@@ -120,28 +120,62 @@ if (
     TICKET_LOGS
   );
 
+  const messages =
+  await interaction.channel.messages.fetch({
+    limit: 100
+  });
+
+const transcript = messages
+  .reverse()
+  .map(
+    msg =>
+      `[${msg.createdAt.toLocaleString()}] ${msg.author.tag}: ${msg.content || "[Attachment]"}`
+  )
+  .join("\n");
+
+  const messages =
+  await interaction.channel.messages.fetch({
+    limit: 500
+  });
+
+  const transcriptFile =
+  new AttachmentBuilder(
+    Buffer.from(transcript, "utf8"),
+    {
+      name: `${interaction.channel.name}-transcript.txt`
+    }
+  );
+
+const transcript = messages
+  .reverse()
+  .map(
+    msg =>
+      `[${msg.createdAt.toLocaleString()}] ${msg.author.tag}: ${msg.content || "[Attachment]"}`
+  )
+  .join("\n");
+
 if (logChannel) {
   await logChannel.send({
-    embeds: [
-      new EmbedBuilder()
-        .setColor("#22c55e")
-        .setTitle("📁 Ticket Resolved")
-        .addFields(
-          {
-            name: "🎫 Ticket",
-            value: interaction.channel.name,
-            inline: true
-          },
-          {
-            name: "✅ Resolved By",
-            value: `${interaction.user}`,
-            inline: true
-          }
-        )
-        .setTimestamp()
-    ]
-  });
-}
+  embeds: [
+    new EmbedBuilder()
+      .setColor("#22c55e")
+      .setTitle("📁 Ticket Resolved")
+      .addFields(
+        {
+          name: "🎫 Ticket",
+          value: interaction.channel.name,
+          inline: true
+        },
+        {
+          name: "✅ Resolved By",
+          value: `${interaction.user}`,
+          inline: true
+        }
+      )
+      .setTimestamp()
+  ],
+  files: [transcriptFile]
+});
 
   setTimeout(async () => {
     try {
