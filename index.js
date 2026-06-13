@@ -102,12 +102,37 @@ client.on("interactionCreate", async (interaction) => {
     });
   }
 
-  if (interaction.customId === "purchase") {
-    await interaction.reply({
-      content: "🟢 Purchase clicked.",
-      ephemeral: true
-    });
-  }
+if (interaction.customId === "report") {
+  const modal = new ModalBuilder()
+    .setCustomId("report_modal")
+    .setTitle("Player Report");
+
+  const ign = new TextInputBuilder()
+    .setCustomId("ign")
+    .setLabel("Minecraft IGN")
+    .setStyle(TextInputStyle.Short)
+    .setRequired(true);
+
+  const platform = new TextInputBuilder()
+    .setCustomId("platform")
+    .setLabel("Java or Bedrock")
+    .setStyle(TextInputStyle.Short)
+    .setRequired(true);
+
+  const reason = new TextInputBuilder()
+    .setCustomId("reason")
+    .setLabel("Reason")
+    .setStyle(TextInputStyle.Paragraph)
+    .setRequired(true);
+
+  modal.addComponents(
+    new ActionRowBuilder().addComponents(ign),
+    new ActionRowBuilder().addComponents(platform),
+    new ActionRowBuilder().addComponents(reason)
+  );
+
+  await interaction.showModal(modal);
+}
 
   if (interaction.customId === "support") {
     await interaction.reply({
