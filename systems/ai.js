@@ -1,4 +1,3 @@
-```js
 import OpenAI from "openai";
 
 const openai = new OpenAI({
@@ -15,8 +14,7 @@ export async function handleAI(message) {
     messages: [
       {
         role: "system",
-        content:
-          "You are Lunaris AI, a helpful assistant inside a Minecraft Discord server."
+        content: "You are Lunaris AI."
       },
       {
         role: "user",
@@ -25,12 +23,9 @@ export async function handleAI(message) {
     ]
   });
 
-  const reply =
-    response.choices?.[0]?.message?.content ||
-    "I couldn't generate a response.";
-
-  await message.reply(reply);
+  await message.reply(
+    response.choices[0].message.content
+  );
 
   return true;
 }
-```
