@@ -127,10 +127,38 @@ if (interaction.customId === "report") {
   await interaction.showModal(modal);
 }
 
-if (interaction.customId === "report") {
+if (interaction.customId === "purchase") {
   const modal = new ModalBuilder()
-    .setCustomId("report_modal")
-    .setTitle("Player Report");
+    .setCustomId("purchase_modal")
+    .setTitle("Purchase Ticket");
+
+  const ign = new TextInputBuilder()
+    .setCustomId("ign")
+    .setLabel("Minecraft IGN")
+    .setStyle(TextInputStyle.Short)
+    .setRequired(true);
+
+  const platform = new TextInputBuilder()
+    .setCustomId("platform")
+    .setLabel("Java or Bedrock")
+    .setStyle(TextInputStyle.Short)
+    .setRequired(true);
+
+  modal.addComponents(
+    new ActionRowBuilder().addComponents(ign),
+    new ActionRowBuilder().addComponents(platform)
+  );
+
+  await interaction.showModal(modal);
+}
+
+  await interaction.showModal(modal);
+}
+
+if (interaction.customId === "support") {
+  const modal = new ModalBuilder()
+    .setCustomId("support_modal")
+    .setTitle("Support Ticket");
 
   const ign = new TextInputBuilder()
     .setCustomId("ign")
@@ -159,12 +187,6 @@ if (interaction.customId === "report") {
   await interaction.showModal(modal);
 }
 
-  if (interaction.customId === "support") {
-    await interaction.reply({
-      content: "🔵 Support clicked.",
-      ephemeral: true
-    });
-  }
 });
 
 client.login(process.env.DISCORD_TOKEN);
