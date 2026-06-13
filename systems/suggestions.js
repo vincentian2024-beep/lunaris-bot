@@ -40,7 +40,7 @@ export async function createSuggestion(
     })
     .setTimestamp();
 
-  const row = new ActionRowBuilder()
+  const row1 = new ActionRowBuilder()
 .addComponents(
   new ButtonBuilder()
     .setCustomId("suggest_upvote")
@@ -50,8 +50,11 @@ export async function createSuggestion(
   new ButtonBuilder()
     .setCustomId("suggest_downvote")
     .setLabel("👎 0")
-    .setStyle(ButtonStyle.Danger),
+    .setStyle(ButtonStyle.Danger)
+);
 
+const row2 = new ActionRowBuilder()
+.addComponents(
   new ButtonBuilder()
     .setCustomId("suggest_accept")
     .setLabel("Accept")
@@ -62,17 +65,11 @@ export async function createSuggestion(
     .setCustomId("suggest_deny")
     .setLabel("Deny")
     .setEmoji("❌")
-    .setStyle(ButtonStyle.Danger),
-
-  new ButtonBuilder()
-    .setCustomId("suggest_implemented")
-    .setLabel("Implemented")
-    .setEmoji("🚀")
-    .setStyle(ButtonStyle.Primary)
+    .setStyle(ButtonStyle.Danger)
 );
 
   return {
-    embeds: [embed],
-    components: [row]
-  };
+  embeds: [embed],
+  components: [row1, row2]
+};
 }
