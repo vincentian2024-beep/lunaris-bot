@@ -43,6 +43,7 @@ const TICKET_LOGS = "1515246807477649468";
 const MEDIA_CHANNEL = "1514956225937149972";
 const SUGGESTION_CHANNEL = "1515149890924052540";
 const JTC_CHANNEL = "1514875884975423518";
+const VC_CATEGORY = "1514630686630346945";
 
 client.once("ready", () => {
   console.log(`${client.user.tag} is online!`);
