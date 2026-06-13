@@ -1,3 +1,5 @@
+import fs from "fs";
+
 import {
   ChannelType,
   PermissionFlagsBits,
@@ -10,26 +12,42 @@ import {
 const TICKET_CATEGORY = "1514630022336348251";
 const STAFF_ROLE_ID = "1514593895877578852";
 
-let reportCounter = 0;
-let supportCounter = 0;
-let purchaseCounter = 0;
+const DATA_FILE = "./data/tickets.json";
+
+function loadData() {
+  return JSON.parse(
+    fs.readFileSync(DATA_FILE, "utf8")
+  );
+}
+
+function saveData(data) {
+  fs.writeFileSync(
+    DATA_FILE,
+    JSON.stringify(data, null, 2)
+  );
+}
+
+const data = loadData();
 
 export async function handleTicketModal(interaction) {
 let ticketNumber;
 
 if (interaction.customId === "report_modal") {
-  reportCounter++;
-  ticketNumber = reportCounter;
+data.reportCounter++;
+ticketNumber = data.reportCounter;
+saveData(data);
 }
 
 if (interaction.customId === "support_modal") {
-  supportCounter++;
-  ticketNumber = supportCounter;
+data.supportCounter++;
+ticketNumber = data.supportCounter;
+saveData(data);
 }
 
 if (interaction.customId === "purchase_modal") {
-  purchaseCounter++;
-  ticketNumber = purchaseCounter;
+data.purchaseCounter++;
+ticketNumber = data.purchaseCounter;
+saveData(data);
 }
 
   let ticketType = "ticket";
