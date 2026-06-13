@@ -17,6 +17,7 @@ import { pingCommand } from "./commands/ping.js";
 import { addAutoRole } from "./systems/autorole.js";
 import { handleAI } from "./systems/ai.js";
 import { ticketPanelCommand } from "./commands/ticketpanel.js";
+import { handleTicketModal } from "./systems/tickets.js";
 
 const client = new Client({
   intents: [
