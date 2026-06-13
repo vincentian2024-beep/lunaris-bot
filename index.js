@@ -77,6 +77,10 @@ if (aiHandled) return;
   if (command === "ping") {
   return pingCommand(message);
 }
+  
+  if (command === "ticketpanel") {
+  return ticketPanelCommand(message);
+}
 });
 
 client.login(process.env.DISCORD_TOKEN);
