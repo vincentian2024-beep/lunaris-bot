@@ -99,6 +99,54 @@ client.on("interactionCreate", async (interaction) => {
 
 if (
   interaction.isButton() &&
+  interaction.customId === "resolve_ticket"
+) {
+  if (
+    !interaction.member.roles.cache.has(STAFF_ROLE_ID)
+  ) {
+    return interaction.reply({
+      content: "❌ Only staff can resolve tickets.",
+      ephemeral: true
+    });
+  }
+
+  await interaction.reply(
+    `✅ Ticket resolved by ${interaction.user}\n🗑️ Deleting in 10 seconds...`
+  );
+
+  setTimeout(async () => {
+    try {
+      await interaction.channel.delete();
+    } catch (err) {
+      console.error(err);
+    }
+  }, 10000);
+
+  return;
+}
+
+if (
+  interaction.isButton() &&
+  interaction.customId === "claim_ticket"
+) {
+  if (
+    !interaction.member.roles.cache.has(STAFF_ROLE_ID)
+  ) {
+    return interaction.reply({
+      content: "❌ Only staff can claim tickets.",
+      ephemeral: true
+    });
+  }
+
+  await interaction.reply({
+    content: `📌 Ticket claimed by ${interaction.user}`
+  });
+
+  return;
+}
+
+if (
+  interaction.isButton() &&
   interaction.customId === "close_ticket"
 ) {
   await interaction.reply({
