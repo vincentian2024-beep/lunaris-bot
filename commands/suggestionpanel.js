@@ -20,6 +20,14 @@ export async function suggestionPanelCommand(message) {
     });
 
   const row = new ActionRowBuilder()
+  .addComponents(
+    new ButtonBuilder()
+      .setCustomId("open_suggestion")
+      .setLabel("Submit Suggestion")
+      .setEmoji("📨")
+      .setStyle(ButtonStyle.Primary)
+  );
+
 const panel = await message.channel.send({
   embeds: [embed],
   components: [row]
@@ -35,10 +43,7 @@ fs.writeFileSync(
 );
 
 await message.delete().catch(() => {});
-  
-  const panelData = {
-  messageId: panel.id
-};
+}
 
 fs.writeFileSync(
   "./data/panel.json",
