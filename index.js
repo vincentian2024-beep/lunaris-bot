@@ -24,6 +24,11 @@ import { handleTicketModal } from "./systems/ticket.js";
 import { suggestionPanelCommand } from "./commands/suggestionpanel.js";
 import { createSuggestion } from "./systems/suggestions.js";
 
+import {
+  handleJoinToCreate,
+  handleVCButtons
+} from "./systems/jointocreate.js";
+
 const client = new Client({
   intents: [
     GatewayIntentBits.Guilds,
