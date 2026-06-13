@@ -1,7 +1,16 @@
 import {
   Client,
   GatewayIntentBits,
-  PermissionsBitField
+  PermissionsBitField,
+  ActionRowBuilder,
+  ButtonBuilder,
+  ButtonStyle,
+  ModalBuilder,
+  TextInputBuilder,
+  TextInputStyle,
+  ChannelType,
+  PermissionFlagsBits,
+  Events
 } from "discord.js";
 
 import { pingCommand } from "./commands/ping.js";
