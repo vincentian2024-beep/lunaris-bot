@@ -13,7 +13,8 @@ const STAFF_ROLE_ID = "1514593895877578852";
 let ticketCounter = 0;
 
 export async function handleTicketModal(interaction) {
-  const ticketNumber = Date.now().toString().slice(-6);
+ticketCounter++;
+const ticketNumber = ticketCounter;
 
   let ticketType = "ticket";
 
