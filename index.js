@@ -95,98 +95,97 @@ if (aiHandled) return;
 client.on("interactionCreate", async (interaction) => {
   if (!interaction.isButton()) return;
 
-if (interaction.customId === "report") {
-  const modal = new ModalBuilder()
-    .setCustomId("report_modal")
-    .setTitle("Player Report");
+  // Player Report
+  if (interaction.customId === "report") {
+    const modal = new ModalBuilder()
+      .setCustomId("report_modal")
+      .setTitle("Player Report");
 
-  const ign = new TextInputBuilder()
-    .setCustomId("ign")
-    .setLabel("Minecraft IGN")
-    .setStyle(TextInputStyle.Short)
-    .setRequired(true);
+    const ign = new TextInputBuilder()
+      .setCustomId("ign")
+      .setLabel("Minecraft IGN")
+      .setStyle(TextInputStyle.Short)
+      .setRequired(true);
 
-  const platform = new TextInputBuilder()
-    .setCustomId("platform")
-    .setLabel("Java or Bedrock")
-    .setStyle(TextInputStyle.Short)
-    .setRequired(true);
+    const platform = new TextInputBuilder()
+      .setCustomId("platform")
+      .setLabel("Java or Bedrock")
+      .setStyle(TextInputStyle.Short)
+      .setRequired(true);
 
-  const reason = new TextInputBuilder()
-    .setCustomId("reason")
-    .setLabel("Reason")
-    .setStyle(TextInputStyle.Paragraph)
-    .setRequired(true);
+    const reason = new TextInputBuilder()
+      .setCustomId("reason")
+      .setLabel("Reason")
+      .setStyle(TextInputStyle.Paragraph)
+      .setRequired(true);
 
-  modal.addComponents(
-    new ActionRowBuilder().addComponents(ign),
-    new ActionRowBuilder().addComponents(platform),
-    new ActionRowBuilder().addComponents(reason)
-  );
+    modal.addComponents(
+      new ActionRowBuilder().addComponents(ign),
+      new ActionRowBuilder().addComponents(platform),
+      new ActionRowBuilder().addComponents(reason)
+    );
 
-  await interaction.showModal(modal);
-}
+    return interaction.showModal(modal);
+  }
 
-if (interaction.customId === "purchase") {
-  const modal = new ModalBuilder()
-    .setCustomId("purchase_modal")
-    .setTitle("Purchase Ticket");
+  // Purchase
+  if (interaction.customId === "purchase") {
+    const modal = new ModalBuilder()
+      .setCustomId("purchase_modal")
+      .setTitle("Purchase Ticket");
 
-  const ign = new TextInputBuilder()
-    .setCustomId("ign")
-    .setLabel("Minecraft IGN")
-    .setStyle(TextInputStyle.Short)
-    .setRequired(true);
+    const ign = new TextInputBuilder()
+      .setCustomId("ign")
+      .setLabel("Minecraft IGN")
+      .setStyle(TextInputStyle.Short)
+      .setRequired(true);
 
-  const platform = new TextInputBuilder()
-    .setCustomId("platform")
-    .setLabel("Java or Bedrock")
-    .setStyle(TextInputStyle.Short)
-    .setRequired(true);
+    const platform = new TextInputBuilder()
+      .setCustomId("platform")
+      .setLabel("Java or Bedrock")
+      .setStyle(TextInputStyle.Short)
+      .setRequired(true);
 
-  modal.addComponents(
-    new ActionRowBuilder().addComponents(ign),
-    new ActionRowBuilder().addComponents(platform)
-  );
+    modal.addComponents(
+      new ActionRowBuilder().addComponents(ign),
+      new ActionRowBuilder().addComponents(platform)
+    );
 
-  await interaction.showModal(modal);
-}
+    return interaction.showModal(modal);
+  }
 
-  await interaction.showModal(modal);
-}
+  // Support
+  if (interaction.customId === "support") {
+    const modal = new ModalBuilder()
+      .setCustomId("support_modal")
+      .setTitle("Support Ticket");
 
-if (interaction.customId === "support") {
-  const modal = new ModalBuilder()
-    .setCustomId("support_modal")
-    .setTitle("Support Ticket");
+    const ign = new TextInputBuilder()
+      .setCustomId("ign")
+      .setLabel("Minecraft IGN")
+      .setStyle(TextInputStyle.Short)
+      .setRequired(true);
 
-  const ign = new TextInputBuilder()
-    .setCustomId("ign")
-    .setLabel("Minecraft IGN")
-    .setStyle(TextInputStyle.Short)
-    .setRequired(true);
+    const platform = new TextInputBuilder()
+      .setCustomId("platform")
+      .setLabel("Java or Bedrock")
+      .setStyle(TextInputStyle.Short)
+      .setRequired(true);
 
-  const platform = new TextInputBuilder()
-    .setCustomId("platform")
-    .setLabel("Java or Bedrock")
-    .setStyle(TextInputStyle.Short)
-    .setRequired(true);
+    const reason = new TextInputBuilder()
+      .setCustomId("reason")
+      .setLabel("Reason")
+      .setStyle(TextInputStyle.Paragraph)
+      .setRequired(true);
 
-  const reason = new TextInputBuilder()
-    .setCustomId("reason")
-    .setLabel("Reason")
-    .setStyle(TextInputStyle.Paragraph)
-    .setRequired(true);
+    modal.addComponents(
+      new ActionRowBuilder().addComponents(ign),
+      new ActionRowBuilder().addComponents(platform),
+      new ActionRowBuilder().addComponents(reason)
+    );
 
-  modal.addComponents(
-    new ActionRowBuilder().addComponents(ign),
-    new ActionRowBuilder().addComponents(platform),
-    new ActionRowBuilder().addComponents(reason)
-  );
-
-  await interaction.showModal(modal);
-}
-
+    return interaction.showModal(modal);
+  }
 });
 
 client.login(process.env.DISCORD_TOKEN);
