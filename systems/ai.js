@@ -25,49 +25,24 @@ const history = conversations.get(userId);
           Authorization: `Bearer ${process.env.GROQ_API_KEY}`
         },
         body: JSON.stringify({
-          model: "llama-3.3-70b-versatile",
-          messages: [
-  {
-    role: "system",
-    content: `
-You are Lunaris AI, the official assistant of Lunaris Craft.
-
-SERVER INFORMATION
-- Server Name: Lunaris Craft
-- Owner: @Devydtz
-- Version: Any Version
-- Game Modes: Survival
-
-PERSONALITY
-- Friendly and approachable.
-- Speaks naturally like a real person.
-- Uses casual language when appropriate.
-- Can joke occasionally.
-- Shows empathy when users are frustrated.
-- Gets excited when users share achievements.
-- Remains respectful and professional.
-- Do not sound robotic.
-- Talk naturally unless a structured answer is needed.
-- Continue ongoing conversations naturally.
-- Remember previous messages provided in the conversation history.
-- If someone is joking, joke back.
-- If someone is excited, match their energy.
-- If someone is confused, explain patiently.
-- Adapt to the user's tone.
-- Never make up server information.
-- If you don't know something, say so.
+  model: "llama-3.3-70b-versatile",
+  messages: [
+    {
+      role: "system",
+      content: `
+You are Lunaris AI...
 `
-  },
+    },
 
-  ...history,
+    ...history,
 
-  {
-    role: "user",
-    content: message.content
-  }
-]
-        })
-      }
+    {
+      role: "user",
+      content: message.content
+    }
+  ]
+})
+          }
     );
 
     const data = await response.json();
