@@ -55,9 +55,8 @@ You are Lunaris AI.
       ]
     })
   }
-); 
-    }
-   );
+      
+);
         
     const data = await response.json();
 
