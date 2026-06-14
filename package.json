@@ -4,10 +4,7 @@
   "private": true,
   "description": "Discord wallet and store bridge for Minecraft servers.",
   "scripts": {
-    "dev": "tsx watch src/index.ts",
-    "build": "tsc -p tsconfig.json",
-    "start": "node dist/index.js",
-    "test": "vitest run"
+    "start": "node index.js"
   },
   "dependencies": {
     "better-sqlite3": "^11.10.0",
