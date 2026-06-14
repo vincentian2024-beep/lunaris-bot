@@ -1,3 +1,14 @@
+import {
+  EmbedBuilder,
+  ActionRowBuilder,
+  ButtonBuilder,
+  ButtonStyle
+} from "discord.js";
+
+export async function vcPanelCommand(
+  message
+) {
+
 const embed = new EmbedBuilder()
   .setColor("#a855f7")
   .setAuthor({
