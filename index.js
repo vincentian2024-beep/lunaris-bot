@@ -1,10 +1,6 @@
 import fs from "fs";
 
 import {
-  vcPanelCommand
-} from "./commands/vcpanel.js";
-
-import {
   Client,
   GatewayIntentBits,
   PermissionsBitField,
@@ -32,6 +28,10 @@ import {
   handleJoinToCreate,
   handleVCButtons
 } from "./systems/jointocreate.js";
+
+import {
+  vcPanelCommand
+} from "./commands/vcpanel.js";
 
 const client = new Client({
   intents: [
