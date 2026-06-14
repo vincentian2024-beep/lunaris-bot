@@ -15,7 +15,7 @@ export async function vcPanelCommand(message) {
         iconURL:
           message.client.user.displayAvatarURL()
       })
-      .setTitle("🌙 Premium Voice Controls")
+      .setTitle("🌙Voice Controls")
       .setDescription(
 `Control your private voice channel using the buttons below.
 
