@@ -2,7 +2,7 @@ import { EmbedBuilder } from "discord.js";
 
 export async function pingCommand(message) {
   const sent = await message.reply(
-    "🏓 Pinging..."
+    "Pinging..."
   );
 
   const ping =
@@ -12,7 +12,7 @@ export async function pingCommand(message) {
   const embed =
     new EmbedBuilder()
       .setColor("#a855f7")
-      .setTitle("🏓 Lunaris Ping")
+      .setTitle("Lunaris Ping")
       .addFields(
         {
           name: "⚡ Latency",
