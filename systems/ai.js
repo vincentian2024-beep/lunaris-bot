@@ -109,6 +109,19 @@ Personality
       data?.choices?.[0]?.message?.content ||
       "I couldn't generate a response.";
 
+    if (
+  message.content
+    .toLowerCase()
+    .startsWith("remember ")
+) {
+  const fact =
+    message.content.slice(9);
+
+  memory[userId].facts.push(fact);
+
+  saveMemory(memory);
+}
+
     history.push({
   role: "user",
   content: message.content
@@ -119,10 +132,10 @@ history.push({
   content: reply
 });
 
-if (history.length > 30) {
+if (history.length > 100) {
   history.splice(
     0,
-    history.length - 30
+    history.length - 100
   );
 }
 
