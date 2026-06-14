@@ -50,10 +50,11 @@ export async function handleJoinToCreate(
   const data = loadData();
 
   data[channel.id] = {
-    owner: member.id
-  };
+  owner: member.id
+};
 
-  saveData(data);
+saveData(data);
+}
 
 export async function handleVCButtons(
   interaction
