@@ -27,7 +27,6 @@ const history = conversations.get(userId);
         body: JSON.stringify({
           model: "llama-3.3-70b-versatile",
           messages: [
-            messages: [
   {
     role: "system",
     content: `
