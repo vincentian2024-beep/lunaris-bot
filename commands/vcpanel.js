@@ -5,7 +5,7 @@ const embed = new EmbedBuilder()
     iconURL: message.client.user.displayAvatarURL()
   })
   .setDescription(
-`> Voice Channel Management
+`> Premium Voice Channel Management
 
 Control your private voice channel using the interface below.`
   )
