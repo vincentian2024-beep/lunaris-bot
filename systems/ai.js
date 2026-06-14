@@ -17,31 +17,45 @@ if (!conversations.has(userId)) {
 const history = conversations.get(userId);
 
     const response = await fetch(
-      "https://api.groq.com/openai/v1/chat/completions",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${process.env.GROQ_API_KEY}`
-        },
-        body: JSON.stringify({
-  model: "llama-3.3-70b-versatile",
-  messages: [
-    {
-      role: "system",
-      content: `
-You are Lunaris AI...
-`
+  "https://api.groq.com/openai/v1/chat/completions",
+  {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${process.env.GROQ_API_KEY}`
     },
+    body: JSON.stringify({
+      model: "llama-3.3-70b-versatile",
+      messages: [
+        {
+          role: "system",
+          content: `
+You are Lunaris AI.
 
-    ...history,
+- Friendly and approachable.
+- Speaks naturally like a real person.
+- Uses casual language when appropriate.
+- Can joke occasionally.
+- Shows empathy when users are frustrated.
+- Gets excited when users share achievements.
+- Continue ongoing conversations naturally.
+- Remember previous messages provided in the conversation history.
+- Adapt to the user's tone.
+- Never make up server information.
+- If you don't know something, say so.
+`
+        },
 
-    {
-      role: "user",
-      content: message.content
-    }
-  ]
-})
+        ...history,
+
+        {
+          role: "user",
+          content: message.content
+        }
+      ]
+    })
+  }
+);
         
     const data = await response.json();
 
