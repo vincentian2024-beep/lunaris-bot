@@ -1,6 +1,10 @@
 import fs from "fs";
 
 import {
+  vcPanelCommand
+} from "./commands/vcpanel.js";
+
+import {
   Client,
   GatewayIntentBits,
   PermissionsBitField,
@@ -140,6 +144,9 @@ if (aiHandled) return;
 }
   if (command === "suggestionpanel") {
   return suggestionPanelCommand(message);
+}
+  if (command === "vcpanel") {
+  return vcPanelCommand(message);
 }
 });
 
