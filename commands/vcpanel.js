@@ -1,94 +1,53 @@
-import {
-  EmbedBuilder,
-  ActionRowBuilder,
-  ButtonBuilder,
-  ButtonStyle
-} from "discord.js";
+const embed = new EmbedBuilder()
+  .setColor("#a855f7")
+  .setAuthor({
+    name: "Lunaris Voice Interface",
+    iconURL: message.client.user.displayAvatarURL()
+  })
+  .setDescription(
+`> Voice Channel Management
 
-export async function vcPanelCommand(
-  message
-) {
-  const embed =
-    new EmbedBuilder()
-      .setColor("#a855f7")
-      .setTitle("🌙 Lunaris Voice Interface")
-      .setDescription(
-`Manage your private voice channel using the controls below.
-
-👑 Only the owner of a Join-To-Create channel can use these controls.
-
-━━━━━━━━━━━━━━━━━━
-
-🔒 Lock / Unlock Channel
-👁 Hide / Show Channel
-✏️ Rename Channel
-👥 Set User Limit
-👑 Transfer Ownership
-🗑 Delete Channel
-
-━━━━━━━━━━━━━━━━━━`
-      );
-
-  const row1 =
-    new ActionRowBuilder()
-      .addComponents(
-        new ButtonBuilder()
-          .setCustomId("vc_lock")
-          .setLabel("Lock")
-          .setEmoji("🔒")
-          .setStyle(ButtonStyle.Secondary),
-
-        new ButtonBuilder()
-          .setCustomId("vc_unlock")
-          .setLabel("Unlock")
-          .setEmoji("🔓")
-          .setStyle(ButtonStyle.Secondary),
-
-        new ButtonBuilder()
-          .setCustomId("vc_hide")
-          .setLabel("Hide")
-          .setEmoji("👁️")
-          .setStyle(ButtonStyle.Secondary),
-
-        new ButtonBuilder()
-          .setCustomId("vc_show")
-          .setLabel("Show")
-          .setEmoji("👀")
-          .setStyle(ButtonStyle.Secondary)
-      );
-
-  const row2 =
-    new ActionRowBuilder()
-      .addComponents(
-        new ButtonBuilder()
-          .setCustomId("vc_rename")
-          .setLabel("Rename")
-          .setEmoji("✏️")
-          .setStyle(ButtonStyle.Primary),
-
-        new ButtonBuilder()
-          .setCustomId("vc_limit")
-          .setLabel("Limit")
-          .setEmoji("👥")
-          .setStyle(ButtonStyle.Primary),
-
-        new ButtonBuilder()
-          .setCustomId("vc_transfer")
-          .setLabel("Transfer")
-          .setEmoji("👑")
-          .setStyle(ButtonStyle.Primary),
-
-        new ButtonBuilder()
-          .setCustomId("vc_delete")
-          .setLabel("Delete")
-          .setEmoji("🗑️")
-          .setStyle(ButtonStyle.Danger)
-      );
-
-  await message.channel.send({
-    embeds: [embed],
-    components: [row1, row2]
-  });
-
-  await message.delete().catch(() => {});
-}
+Control your private voice channel using the interface below.`
+  )
+  .addFields(
+    {
+      name: "👑 Ownership",
+      value: "Join-To-Create Owner",
+      inline: true
+    },
+    {
+      name: "🔊 Status",
+      value: "Connected",
+      inline: true
+    },
+    {
+      name: "⚡ Access",
+      value: "Full Control",
+      inline: true
+    },
+    {
+      name: "🔒 Privacy",
+      value: "Manage Lock State",
+      inline: true
+    },
+    {
+      name: "👥 Members",
+      value: "Manage User Limit",
+      inline: true
+    },
+    {
+      name: "🎨 Customization",
+      value: "Rename & Transfer",
+      inline: true
+    }
+  )
+  .setThumbnail(
+    message.client.user.displayAvatarURL()
+  )
+  .setImage(
+    "https://i.imgur.com/yourBanner.png"
+  )
+  .setFooter({
+    text: "Powered by Lunaris Craft"
+  })
+  .setTimestamp();
