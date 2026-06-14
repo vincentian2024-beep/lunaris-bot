@@ -1,6 +1,28 @@
+import fs from "fs";
+
 const conversations = new Map();
 
 const AI_CHANNEL = "1515185455543619706";
+
+function loadMemory() {
+  try {
+    return JSON.parse(
+      fs.readFileSync(
+        "./data/memory.json",
+        "utf8"
+      )
+    );
+  } catch {
+    return {};
+  }
+}
+
+function saveMemory(data) {
+  fs.writeFileSync(
+    "./data/memory.json",
+    JSON.stringify(data, null, 2)
+  );
+}
 
 export async function handleAI(message) {
   if (message.channel.id !== AI_CHANNEL) return false;
@@ -15,6 +37,14 @@ if (!conversations.has(userId)) {
 }
 
 const history = conversations.get(userId);
+
+    const memory = loadMemory();
+
+if (!memory[userId]) {
+  memory[userId] = {
+    facts: []
+  };
+}
 
     const response = await fetch(
   "https://api.groq.com/openai/v1/chat/completions",
@@ -32,6 +62,11 @@ const history = conversations.get(userId);
           content: `
 You are Lunaris AI.
 
+You have memory of previous conversations.
+
+Known memories:
+${memory[userId].facts.join("\n")}
+Personality
 - Friendly and approachable.
 - Speaks naturally like a real person.
 - Uses casual language when appropriate.
