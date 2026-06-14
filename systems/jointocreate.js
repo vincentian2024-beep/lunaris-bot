@@ -1,7 +1,11 @@
 import fs from "fs";
 
 import {
-  ChannelType
+  ChannelType,
+  EmbedBuilder,
+  ActionRowBuilder,
+  ButtonBuilder,
+  ButtonStyle
 } from "discord.js";
 
 const JTC_CHANNEL = "1514875884975423518";
@@ -49,7 +53,59 @@ export async function handleJoinToCreate(
     owner: member.id
   };
 
-  saveData(data);
+    saveData(data);
+
+  const panelEmbed =
+    new EmbedBuilder()
+      .setColor("#a855f7")
+      .setDescription(
+`# 🌙 Lunaris Voice Controls
+
+> Manage your private voice channel using the controls below.
+
+👑 **Owner**
+${member}
+
+🎙️ **Channel**
+${channel.name}
+
+━━━━━━━━━━━━━━━━━━`
+      );
+
+  const row1 =
+    new ActionRowBuilder()
+      .addComponents(
+
+        new ButtonBuilder()
+          .setCustomId("vc_lock")
+          .setEmoji("🔒")
+          .setStyle(ButtonStyle.Secondary),
+
+        new ButtonBuilder()
+          .setCustomId("vc_unlock")
+          .setEmoji("🔓")
+          .setStyle(ButtonStyle.Secondary),
+
+        new ButtonBuilder()
+          .setCustomId("vc_rename")
+          .setEmoji("✏️")
+          .setStyle(ButtonStyle.Primary),
+
+        new ButtonBuilder()
+          .setCustomId("vc_limit")
+          .setEmoji("👥")
+          .setStyle(ButtonStyle.Primary),
+
+        new ButtonBuilder()
+          .setCustomId("vc_delete")
+          .setEmoji("🗑️")
+          .setStyle(ButtonStyle.Danger)
+      );
+
+  await channel.send({
+    embeds: [panelEmbed],
+    components: [row1]
+  });
 }
 
 export async function handleVCButtons(
