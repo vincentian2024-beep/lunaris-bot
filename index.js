@@ -163,6 +163,33 @@ client.on("interactionCreate", async (interaction) => {
   if (
   interaction.isModalSubmit() &&
   interaction.customId ===
+    "limit_vc"
+) {
+
+  const channel =
+    interaction.member.voice.channel;
+
+  const limit =
+    parseInt(
+      interaction.fields.getTextInputValue(
+        "limit"
+      )
+    );
+
+  await channel.setUserLimit(
+    limit
+  );
+
+  return interaction.reply({
+    content:
+      `✅ Limit set to ${limit}`,
+    ephemeral: true
+  });
+}
+
+  if (
+  interaction.isModalSubmit() &&
+  interaction.customId ===
     "rename_vc"
 ) {
 
