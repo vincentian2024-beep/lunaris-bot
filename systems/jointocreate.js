@@ -104,6 +104,42 @@ export async function handleVCButtons(
 
 if (
   interaction.customId ===
+  "vc_limit"
+) {
+
+  const modal =
+    new ModalBuilder()
+      .setCustomId(
+        "limit_vc"
+      )
+      .setTitle(
+        "User Limit"
+      );
+
+  const input =
+    new TextInputBuilder()
+      .setCustomId(
+        "limit"
+      )
+      .setLabel(
+        "Enter limit (0-99)"
+      )
+      .setStyle(
+        TextInputStyle.Short
+      );
+
+  modal.addComponents(
+    new ActionRowBuilder()
+      .addComponents(input)
+  );
+
+  return interaction.showModal(
+    modal
+  );
+}
+  
+if (
+  interaction.customId ===
   "vc_rename"
 ) {
 
