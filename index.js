@@ -265,37 +265,6 @@ if (
   });
 }
 
-  const name =
-    interaction.fields.getTextInputValue(
-      "new_name"
-    );
-
-  await channel.setName(name);
-
-  return interaction.reply({
-    content:
-      `✅ VC renamed to ${name}`,
-    ephemeral: true
-  });
-}
-
-  const limit = parseInt(
-    interaction.fields.getTextInputValue(
-      "limit"
-    )
-  );
-
-  await channel.setUserLimit(limit);
-
-  return interaction.reply({
-    content:
-      `✅ Limit set to ${limit}`,
-    ephemeral: true
-  });
-}
-
-  
-
   if (
   interaction.isButton() &&
   interaction.customId.startsWith("vc_")
