@@ -160,7 +160,59 @@ if (aiHandled) return;
 
 client.on("interactionCreate", async (interaction) => {
 
- if (
+if (
+  interaction.isModalSubmit() &&
+  interaction.customId ===
+    "rename_vc"
+) {
+
+  const channel =
+    interaction.member.voice.channel;
+
+  if (!channel) {
+    return interaction.reply({
+      content:
+        "❌ Join a VC first.",
+      ephemeral: true
+    });
+  }
+
+  const data = JSON.parse(
+    fs.readFileSync(
+      "./data/voice.json",
+      "utf8"
+    )
+  );
+
+  if (
+    !data[channel.id] ||
+    data[channel.id].owner !==
+      interaction.user.id
+  ) {
+    return interaction.reply({
+      content:
+        "❌ Only the VC owner can rename the VC.",
+      ephemeral: true
+    });
+  }
+
+  const newName =
+    interaction.fields.getTextInputValue(
+      "new_name"
+    );
+
+  await channel.setName(
+    newName
+  );
+
+  return interaction.reply({
+    content:
+      `✅ VC renamed to ${newName}`,
+    ephemeral: true
+  });
+}
+
+if (
   interaction.isModalSubmit() &&
   interaction.customId ===
     "limit_vc"
@@ -171,10 +223,47 @@ client.on("interactionCreate", async (interaction) => {
 
   if (!channel) {
     return interaction.reply({
-      content: "❌ Join a VC first.",
+      content:
+        "❌ Join a VC first.",
       ephemeral: true
     });
   }
+
+  const data = JSON.parse(
+    fs.readFileSync(
+      "./data/voice.json",
+      "utf8"
+    )
+  );
+
+  if (
+    !data[channel.id] ||
+    data[channel.id].owner !==
+      interaction.user.id
+  ) {
+    return interaction.reply({
+      content:
+        "❌ Only the VC owner can change the limit.",
+      ephemeral: true
+    });
+  }
+
+  const limit = parseInt(
+    interaction.fields.getTextInputValue(
+      "limit"
+    )
+  );
+
+  await channel.setUserLimit(
+    limit
+  );
+
+  return interaction.reply({
+    content:
+      `✅ Limit set to ${limit}`,
+    ephemeral: true
+  });
+}
 
 if (
   interaction.isModalSubmit() &&
