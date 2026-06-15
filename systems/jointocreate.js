@@ -98,5 +98,145 @@ export async function handleVCDelete(
 export async function handleVCButtons(
   interaction
 ) {
-  return;
+
+  if (!interaction.isButton())
+    return;
+
+  const data = loadData();
+
+  const channel =
+    interaction.member.voice.channel;
+
+  if (!channel) {
+    return interaction.reply({
+      content:
+        "❌ Join your voice channel first.",
+      ephemeral: true
+    });
+  }
+
+  if (
+    !data[channel.id]
+  ) {
+    return interaction.reply({
+      content:
+        "❌ This is not a Join-To-Create channel.",
+      ephemeral: true
+    });
+  }
+
+  if (
+    data[channel.id].owner !==
+    interaction.user.id
+  ) {
+    return interaction.reply({
+      content:
+        "❌ You are not the owner of this VC.",
+      ephemeral: true
+    });
+  }
+
+  // LOCK
+
+  if (
+    interaction.customId ===
+    "vc_lock"
+  ) {
+
+    await channel.permissionOverwrites.edit(
+      interaction.guild.roles.everyone,
+      {
+        Connect: false
+      }
+    );
+
+    return interaction.reply({
+      content:
+        "🔒 Voice channel locked.",
+      ephemeral: true
+    });
+  }
+
+  // UNLOCK
+
+  if (
+    interaction.customId ===
+    "vc_unlock"
+  ) {
+
+    await channel.permissionOverwrites.edit(
+      interaction.guild.roles.everyone,
+      {
+        Connect: null
+      }
+    );
+
+    return interaction.reply({
+      content:
+        "🔓 Voice channel unlocked.",
+      ephemeral: true
+    });
+  }
+
+  // HIDE
+
+  if (
+    interaction.customId ===
+    "vc_hide"
+  ) {
+
+    await channel.permissionOverwrites.edit(
+      interaction.guild.roles.everyone,
+      {
+        ViewChannel: false
+      }
+    );
+
+    return interaction.reply({
+      content:
+        "👁️ Voice channel hidden.",
+      ephemeral: true
+    });
+  }
+
+  // SHOW
+
+  if (
+    interaction.customId ===
+    "vc_show"
+  ) {
+
+    await channel.permissionOverwrites.edit(
+      interaction.guild.roles.everyone,
+      {
+        ViewChannel: null
+      }
+    );
+
+    return interaction.reply({
+      content:
+        "👀 Voice channel visible.",
+      ephemeral: true
+    });
+  }
+
+  // DELETE
+
+  if (
+    interaction.customId ===
+    "vc_delete"
+  ) {
+
+    delete data[channel.id];
+
+    saveData(data);
+
+    await interaction.reply({
+      content:
+        "🗑️ Deleting voice channel...",
+      ephemeral: true
+    });
+
+    return channel.delete();
+  }
 }
