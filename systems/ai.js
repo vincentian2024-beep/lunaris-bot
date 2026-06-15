@@ -1,3 +1,11 @@
+import { GoogleGenerativeAI }
+from "@google/generative-ai";
+
+const genAI =
+  new GoogleGenerativeAI(
+    process.env.GEMINI_API_KEY
+  );
+
 import fs from "fs";
 
 const conversations = new Map();
@@ -46,20 +54,60 @@ if (!memory[userId]) {
   };
 }
 
-    const response = await fetch(
-  "https://api.groq.com/openai/v1/chat/completions",
-  {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${process.env.GROQ_API_KEY}`
-    },
-    body: JSON.stringify({
-      model: "llama-3.3-70b-versatile",
-      messages: [
-        {
-          role: "system",
-          content: `
+    let reply;
+
+try {
+
+  const model =
+    genAI.getGenerativeModel({
+      model: "gemini-2.5-flash"
+    });
+
+  const prompt = `
+${memory[userId].facts.join("\n")}
+
+${history
+  .map(
+    msg =>
+      `${msg.role}: ${msg.content}`
+  )
+  .join("\n")}
+
+user: ${message.content}
+`;
+
+  const result =
+    await model.generateContent(
+      prompt
+    );
+
+  reply =
+    result.response.text();
+
+} catch (geminiError) {
+
+  console.log(
+    "Gemini failed, switching to Groq..."
+  );
+
+  const response =
+    await fetch(
+      "https://api.groq.com/openai/v1/chat/completions",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type":
+            "application/json",
+          Authorization:
+            `Bearer ${process.env.GROQ_API_KEY}`
+        },
+        body: JSON.stringify({
+          model:
+            "llama-3.3-70b-versatile",
+          messages: [
+            {
+              role: "system",
+              content: `
 You are Lunaris AI.
 
 You have memory of previous conversations.
@@ -183,22 +231,31 @@ Prioritize usefulness, clarity, and accuracy.
       
 );
         
-    const data = await response.json();
+    Known memories:
+${memory[userId].facts.join("\n")}
 
-    if (!response.ok) {
-      console.error(data);
+            },
 
-      await message.reply(
-        "❌ AI service error. Check Railway logs."
-      );
+            ...history,
 
-      return true;
-    }
+            {
+              role: "user",
+              content:
+                message.content
+            }
+          ]
+        })
+      }
+    );
 
-    const reply =
-      data?.choices?.[0]?.message?.content ||
-      "I couldn't generate a response.";
+  const data =
+    await response.json();
 
+  reply =
+    data?.choices?.[0]?.message
+      ?.content ||
+    "I couldn't generate a response.";
+}
     if (
   message.content
     .toLowerCase()
