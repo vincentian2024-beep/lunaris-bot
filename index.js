@@ -161,6 +161,39 @@ if (aiHandled) return;
 client.on("interactionCreate", async (interaction) => {
 
   if (
+  interaction.isModalSubmit() &&
+  interaction.customId ===
+    "rename_vc"
+) {
+
+  const channel =
+    interaction.member.voice.channel;
+
+  if (!channel) {
+    return interaction.reply({
+      content:
+        "❌ Join a VC first.",
+      ephemeral: true
+    });
+  }
+
+  const name =
+    interaction.fields.getTextInputValue(
+      "new_name"
+    );
+
+  await channel.setName(
+    name
+  );
+
+  return interaction.reply({
+    content:
+      `✅ VC renamed to ${name}`,
+    ephemeral: true
+  });
+}
+
+  if (
   interaction.isButton() &&
   interaction.customId.startsWith("vc_")
 ) {
