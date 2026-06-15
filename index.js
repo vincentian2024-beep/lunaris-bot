@@ -26,6 +26,11 @@ import { suggestionPanelCommand } from "./commands/suggestionpanel.js";
 import { createSuggestion } from "./systems/suggestions.js";
 
 import {
+  handleStaffButtons
+}
+from "./events/staffbuttons.js";
+
+import {
   handleJoinToCreate,
   handleVCDelete,
   handleVCButtons
@@ -176,6 +181,10 @@ if (aiHandled) return;
 });
 
 client.on("interactionCreate", async (interaction) => {
+
+  await handleStaffButtons(
+  interaction
+);
 
 if (
   interaction.isStringSelectMenu() &&
