@@ -196,6 +196,46 @@ client.on("interactionCreate", async (interaction) => {
   const channel =
     interaction.member.voice.channel;
 
+    const data =
+  JSON.parse(
+    fs.readFileSync(
+      "./data/voice.json",
+      "utf8"
+    )
+  );
+
+if (
+  !data[channel.id] ||
+  data[channel.id].owner !==
+    interaction.user.id
+) {
+  return interaction.reply({
+    content:
+      "❌ Only the VC owner can rename the VC.",
+    ephemeral: true
+  });
+}
+
+    const data =
+  JSON.parse(
+    fs.readFileSync(
+      "./data/voice.json",
+      "utf8"
+    )
+  );
+
+if (
+  !data[channel.id] ||
+  data[channel.id].owner !==
+    interaction.user.id
+) {
+  return interaction.reply({
+    content:
+      "❌ Only the VC owner can change the limit.",
+    ephemeral: true
+  });
+}
+
   if (!channel) {
     return interaction.reply({
       content:
