@@ -67,7 +67,7 @@ client.once("ready", () => {
     activities: [
       {
         name:
-          "Guardian of Lunaris Craft 🌙",
+          "over Lunaris Craft 🌙",
         type:
           ActivityType.Watching
       }
