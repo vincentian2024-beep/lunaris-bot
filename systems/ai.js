@@ -1,5 +1,4 @@
-import { GoogleGenerativeAI }
-from "@google/generative-ai";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
 const genAI =
   new GoogleGenerativeAI(
@@ -230,26 +229,6 @@ Prioritize usefulness, clarity, and accuracy.
   }
       
 );
-        
-    Known memories:
-${memory[userId].facts.join("\n")}
-
-            },
-
-            ...history,
-
-            {
-              role: "user",
-              content:
-                message.content
-            }
-          ]
-        })
-      }
-    );
-
-  const data =
-    await response.json();
 
   reply =
     data?.choices?.[0]?.message
