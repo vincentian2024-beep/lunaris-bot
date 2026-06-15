@@ -179,6 +179,30 @@ if (
   "vc_delete"
 ) {
 
+  if (
+    data[channel.id].owner !==
+    interaction.user.id
+  ) {
+    return interaction.reply({
+      content:
+        "❌ Only the VC owner can delete the VC.",
+      ephemeral: true
+    });
+  }
+
+  delete data[channel.id];
+
+  saveData(data);
+
+  await interaction.reply({
+    content:
+      "🗑️ Deleting VC...",
+      ephemeral: true
+  });
+
+  return channel.delete();
+}
+
   delete data[channel.id];
 
   saveData(data);
