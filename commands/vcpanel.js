@@ -19,7 +19,6 @@ export async function vcPanelCommand(message) {
       .setDescription(
 `Control your private voice channel using the buttons below.
 
-Powered by Lunaris Craft`
       )
       .setThumbnail(
         message.client.user.displayAvatarURL()
