@@ -193,6 +193,19 @@ if (
     });
   }
 
+  await channel.setName(
+    interaction.fields.getTextInputValue(
+      "new_name"
+    )
+  );
+
+  return interaction.reply({
+    content:
+      "✅ VC renamed successfully.",
+    ephemeral: true
+  });
+}
+
   const data = JSON.parse(
     fs.readFileSync(
       "./data/voice.json",
