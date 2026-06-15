@@ -26,6 +26,11 @@ import { suggestionPanelCommand } from "./commands/suggestionpanel.js";
 import { createSuggestion } from "./systems/suggestions.js";
 
 import {
+  mstaffPanelCommand
+}
+from "./commands/mstaffpanel.js";
+
+import {
   handleStaffButtons
 }
 from "./events/staffbuttons.js";
@@ -39,6 +44,16 @@ import {
 import {
   vcPanelCommand
 } from "./commands/vcpanel.js";
+
+if (
+  command === "mstaffpanel"
+) {
+
+  return mstaffPanelCommand(
+    message
+  );
+
+}
 
 const client = new Client({
   intents: [
