@@ -161,67 +161,23 @@ if (aiHandled) return;
 client.on("interactionCreate", async (interaction) => {
 
 if (
+  interaction.isStringSelectMenu() &&
   interaction.customId ===
-  "vc_transfer"
+    "kick_user"
 ) {
 
-  const members =
-    [...channel.members.values()]
-      .filter(
-        m =>
-          m.id !==
-          interaction.user.id
-      );
+  const member =
+    await interaction.guild.members.fetch(
+      interaction.values[0]
+    );
 
-  if (
-    members.length === 0
-  ) {
-    return interaction.reply({
-      content:
-        "❌ Nobody else is in the VC.",
-      ephemeral: true
-    });
-  }
+  await member.voice.disconnect();
 
-  try {
-
-    const menu =
-      new StringSelectMenuBuilder()
-        .setCustomId(
-          "transfer_owner"
-        )
-        .setPlaceholder(
-          "Select a new owner"
-        )
-        .addOptions(
-          members.map(m => ({
-            label:
-              m.user.username,
-            value: m.id
-          }))
-        );
-
-    const row =
-      new ActionRowBuilder()
-        .addComponents(menu);
-
-    return interaction.reply({
-      content:
-        "👑 Select the new owner:",
-      components: [row],
-      ephemeral: true
-    });
-
-  } catch (err) {
-
-    console.error(err);
-
-    return interaction.reply({
-      content:
-        `❌ Transfer Error: ${err.message}`,
-      ephemeral: true
-    });
-  }
+  return interaction.update({
+    content:
+      `👢 Kicked ${member.user.username}`,
+    components: []
+  });
 }
 
 if (
