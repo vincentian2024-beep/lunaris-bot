@@ -19,14 +19,6 @@ export async function vcPanelCommand(message) {
       .setDescription(
 `Control your private voice channel using the buttons below.
 
-👑 Owner-only controls
-🔒 Lock / Unlock
-👁 Hide / Show
-✏️ Rename
-👥 User Limit
-👑 Transfer Ownership
-🗑 Delete Channel
-
 Powered by Lunaris Craft`
       )
       .setThumbnail(
@@ -81,9 +73,9 @@ Powered by Lunaris Craft`
           .setStyle(ButtonStyle.Primary),
 
         new ButtonBuilder()
-          .setCustomId("vc_transfer")
-          .setLabel("Transfer")
-          .setEmoji("👑")
+          .setCustomId("vc_kick")
+          .setLabel("Kick User")
+          .setEmoji("👢")
           .setStyle(ButtonStyle.Primary),
 
         new ButtonBuilder()
