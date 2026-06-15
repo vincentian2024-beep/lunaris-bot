@@ -165,13 +165,63 @@ if (
   "vc_transfer"
 ) {
 
-  console.log("TRANSFER CLICKED");
+  const members =
+    [...channel.members.values()]
+      .filter(
+        m =>
+          m.id !==
+          interaction.user.id
+      );
 
-  return interaction.reply({
-    content:
-      "👑 Transfer button works.",
-    ephemeral: true
-  });
+  if (
+    members.length === 0
+  ) {
+    return interaction.reply({
+      content:
+        "❌ Nobody else is in the VC.",
+      ephemeral: true
+    });
+  }
+
+  try {
+
+    const menu =
+      new StringSelectMenuBuilder()
+        .setCustomId(
+          "transfer_owner"
+        )
+        .setPlaceholder(
+          "Select a new owner"
+        )
+        .addOptions(
+          members.map(m => ({
+            label:
+              m.user.username,
+            value: m.id
+          }))
+        );
+
+    const row =
+      new ActionRowBuilder()
+        .addComponents(menu);
+
+    return interaction.reply({
+      content:
+        "👑 Select the new owner:",
+      components: [row],
+      ephemeral: true
+    });
+
+  } catch (err) {
+
+    console.error(err);
+
+    return interaction.reply({
+      content:
+        `❌ Transfer Error: ${err.message}`,
+      ephemeral: true
+    });
+  }
 }
 
 if (
