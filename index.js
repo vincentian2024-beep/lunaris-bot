@@ -160,53 +160,16 @@ if (aiHandled) return;
 
 client.on("interactionCreate", async (interaction) => {
 
- if (
+if (
   interaction.customId ===
   "vc_transfer"
 ) {
 
-  const members =
-    [...channel.members.values()]
-      .filter(
-        m =>
-          m.id !==
-          interaction.user.id
-      );
-
-  if (
-    members.length === 0
-  ) {
-    return interaction.reply({
-      content:
-        "❌ Nobody else is in the VC.",
-      ephemeral: true
-    });
-  }
-
-  const menu =
-    new StringSelectMenuBuilder()
-      .setCustomId(
-        "transfer_owner"
-      )
-      .setPlaceholder(
-        "Select new owner"
-      )
-      .addOptions(
-        members.map(m => ({
-          label:
-            m.user.username,
-          value: m.id
-        }))
-      );
-
-  const row =
-    new ActionRowBuilder()
-      .addComponents(menu);
+  console.log("TRANSFER CLICKED");
 
   return interaction.reply({
     content:
-      "👑 Select the new owner:",
-    components: [row],
+      "👑 Transfer button works.",
     ephemeral: true
   });
 }
