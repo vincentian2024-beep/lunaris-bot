@@ -138,10 +138,7 @@ if (
   );
 }
   
-if (
-  interaction.customId ===
-  "vc_rename"
-) {
+"vc_rename" {
 
   const modal =
     new ModalBuilder()
