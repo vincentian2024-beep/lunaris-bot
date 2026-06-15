@@ -189,6 +189,11 @@ if (aiHandled) return;
   if (command === "vcpanel") {
   return vcPanelCommand(message);
 }
+  
+if (command === "mstaffpanel") {
+  return mstaffPanelCommand(message);
+}
+  
 });
 
 client.on("interactionCreate", async (interaction) => {
