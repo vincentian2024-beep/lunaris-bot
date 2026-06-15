@@ -208,7 +208,7 @@ if (
 
   if (
   interaction.customId ===
-  "vc_transfer"
+  "vc_kick"
 ) {
 
   const members =
@@ -229,30 +229,14 @@ if (
     });
   }
 
-  const menu =
-    new StringSelectMenuBuilder()
-      .setCustomId(
-        "transfer_owner"
-      )
-      .setPlaceholder(
-        "Select a new owner"
-      )
-      .addOptions(
-        members.map(m => ({
-          label:
-            m.user.username,
-          value: m.id
-        }))
-      );
+  const target =
+    members[0];
 
-  const row =
-    new ActionRowBuilder()
-      .addComponents(menu);
+  await target.voice.disconnect();
 
   return interaction.reply({
     content:
-      "👑 Select the new VC owner:",
-    components: [row],
+      `👢 Kicked ${target.user.username}`,
     ephemeral: true
   });
 }
