@@ -109,29 +109,13 @@ if (
 
   const modal =
     new ModalBuilder()
-  
-if (
-  interaction.customId ===
-  "vc_rename"
-) {
-
-  const modal =
-    new ModalBuilder()
-      .setCustomId(
-        "rename_vc"
-      )
-      .setTitle(
-        "Rename Voice Channel"
-      );
+      .setCustomId("limit_vc")
+      .setTitle("User Limit");
 
   const input =
     new TextInputBuilder()
-      .setCustomId(
-        "new_name"
-      )
-      .setLabel(
-        "New VC Name"
-      )
+      .setCustomId("limit")
+      .setLabel("Enter limit (0-99)")
       .setStyle(
         TextInputStyle.Short
       );
@@ -145,6 +129,37 @@ if (
     modal
   );
 }
+
+if (
+  interaction.customId ===
+  "vc_rename"
+) {
+
+  const modal =
+    new ModalBuilder()
+      .setCustomId("rename_vc")
+      .setTitle(
+        "Rename Voice Channel"
+      );
+
+  const input =
+    new TextInputBuilder()
+      .setCustomId("new_name")
+      .setLabel("New VC Name")
+      .setStyle(
+        TextInputStyle.Short
+      );
+
+  modal.addComponents(
+    new ActionRowBuilder()
+      .addComponents(input)
+  );
+
+  return interaction.showModal(
+    modal
+  );
+}
+
       .setCustomId(
         "rename_vc"
       )
