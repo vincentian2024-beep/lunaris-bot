@@ -1,1 +1,5 @@
-{}
+{
+  "channelid": {
+    "owner": "userid"
+  }
+}
