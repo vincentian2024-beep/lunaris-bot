@@ -160,6 +160,57 @@ if (aiHandled) return;
 
 client.on("interactionCreate", async (interaction) => {
 
+  if (
+  interaction.isStringSelectMenu() &&
+  interaction.customId ===
+    "transfer_owner"
+) {
+
+  const channel =
+    interaction.member.voice.channel;
+
+  if (!channel) {
+    return interaction.reply({
+      content:
+        "❌ Join a VC first.",
+      ephemeral: true
+    });
+  }
+
+  const data = JSON.parse(
+    fs.readFileSync(
+      "./data/voice.json",
+      "utf8"
+    )
+  );
+
+  const newOwner =
+    interaction.values[0];
+
+  data[channel.id].owner =
+    newOwner;
+
+  fs.writeFileSync(
+    "./data/voice.json",
+    JSON.stringify(
+      data,
+      null,
+      2
+    )
+  );
+
+  const member =
+    await interaction.guild.members.fetch(
+      newOwner
+    );
+
+  return interaction.update({
+    content:
+      `👑 Ownership transferred to ${member.user.username}`,
+    components: []
+  });
+}
+
 if (
   interaction.isModalSubmit() &&
   interaction.customId ===
