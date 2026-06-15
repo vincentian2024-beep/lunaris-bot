@@ -63,10 +63,17 @@ client.once("ready", () => {
 client.on(
   "voiceStateUpdate",
   async (oldState, newState) => {
+
     await handleJoinToCreate(
       oldState,
       newState
     );
+
+    await handleVCDelete(
+      oldState,
+      newState
+    );
+
   }
 );
 
