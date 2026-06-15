@@ -176,6 +176,56 @@ client.on("interactionCreate", async (interaction) => {
     });
   }
 
+if (
+  interaction.isModalSubmit() &&
+  interaction.customId ===
+    "rename_vc"
+) {
+
+  const channel =
+    interaction.member.voice.channel;
+
+  if (!channel) {
+    return interaction.reply({
+      content:
+        "❌ Join a VC first.",
+      ephemeral: true
+    });
+  }
+
+  const data = JSON.parse(
+    fs.readFileSync(
+      "./data/voice.json",
+      "utf8"
+    )
+  );
+
+  if (
+    !data[channel.id] ||
+    data[channel.id].owner !==
+      interaction.user.id
+  ) {
+    return interaction.reply({
+      content:
+        "❌ Only the VC owner can rename the VC.",
+      ephemeral: true
+    });
+  }
+
+  const name =
+    interaction.fields.getTextInputValue(
+      "new_name"
+    );
+
+  await channel.setName(name);
+
+  return interaction.reply({
+    content:
+      `✅ VC renamed to ${name}`,
+    ephemeral: true
+  });
+}
+   
   const data = JSON.parse(
     fs.readFileSync(
       "./data/voice.json",
