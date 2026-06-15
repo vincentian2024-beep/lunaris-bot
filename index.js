@@ -40,9 +40,9 @@ import {
   vcPanelCommand
 } from "./commands/vcpanel.js";
 
-if (
-  command === "mstaffpanel"
-) {
+import {
+  mstaffPanelCommand
+} from "./commands/mstaffpanel.js";
 
   return mstaffPanelCommand(
     message
