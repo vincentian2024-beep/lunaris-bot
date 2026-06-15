@@ -124,6 +124,13 @@ client.on("guildMemberAdd", async (member) => {
 });
 
 client.on("messageCreate", async (message) => {
+
+  if (
+  command === "ship"
+) {
+  return shipCommand(message);
+}
+  
   if (message.author.bot) return;
   
   const aiHandled = await handleAI(message);
