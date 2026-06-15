@@ -229,14 +229,30 @@ if (
     });
   }
 
-  const target =
-    members[0];
+  const menu =
+    new StringSelectMenuBuilder()
+      .setCustomId(
+        "kick_user"
+      )
+      .setPlaceholder(
+        "Select a user to kick"
+      )
+      .addOptions(
+        members.map(m => ({
+          label:
+            m.user.username,
+          value: m.id
+        }))
+      );
 
-  await target.voice.disconnect();
+  const row =
+    new ActionRowBuilder()
+      .addComponents(menu);
 
   return interaction.reply({
     content:
-      `👢 Kicked ${target.user.username}`,
+      "👢 Select a user to kick:",
+    components: [row],
     ephemeral: true
   });
 }
