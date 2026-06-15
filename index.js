@@ -26,6 +26,10 @@ import { suggestionPanelCommand } from "./commands/suggestionpanel.js";
 import { createSuggestion } from "./systems/suggestions.js";
 
 import {
+  shipCommand
+} from "./commands/ship.js";
+
+import {
   handleStaffButtons
 }
 from "./events/staffbuttons.js";
