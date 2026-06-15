@@ -265,36 +265,6 @@ if (
   });
 }
 
-if (
-  interaction.isModalSubmit() &&
-  interaction.customId ===
-    "rename_vc"
-) {
-
-  const channel =
-    interaction.member.voice.channel;
-
-  if (!channel) {
-    return interaction.reply({
-      content:
-        "❌ Join a VC first.",
-      ephemeral: true
-    });
-  }
-
-  await channel.setName(
-    interaction.fields.getTextInputValue(
-      "new_name"
-    )
-  );
-
-  return interaction.reply({
-    content:
-      "✅ VC renamed successfully.",
-    ephemeral: true
-  });
-}
-
   const data = JSON.parse(
     fs.readFileSync(
       "./data/voice.json",
