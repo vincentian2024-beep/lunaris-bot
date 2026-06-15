@@ -198,8 +198,19 @@ if (aiHandled) return;
 
 client.on("interactionCreate", async (interaction) => {
 
-  await handleStaffButtons(
-  interaction
+ client.on(
+  "interactionCreate",
+  async interaction => {
+
+    await handleVCButtons(
+      interaction
+    );
+
+    await handleStaffButtons(
+      interaction
+    );
+
+  }
 );
 
 if (
