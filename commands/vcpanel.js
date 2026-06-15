@@ -17,7 +17,7 @@ export async function vcPanelCommand(message) {
       })
       .setTitle("🌙Voice Controls")
       .setDescription(
-`Control your private voice channel using the buttons below.
+`Control your private voice channel using the buttons below.`
 
   
       )
