@@ -160,54 +160,54 @@ if (aiHandled) return;
 
 client.on("interactionCreate", async (interaction) => {
 
-  if (
-  interaction.isStringSelectMenu() &&
+ if (
   interaction.customId ===
-    "transfer_owner"
+  "vc_transfer"
 ) {
 
-  const channel =
-    interaction.member.voice.channel;
+  const members =
+    [...channel.members.values()]
+      .filter(
+        m =>
+          m.id !==
+          interaction.user.id
+      );
 
-  if (!channel) {
+  if (
+    members.length === 0
+  ) {
     return interaction.reply({
       content:
-        "❌ Join a VC first.",
+        "❌ Nobody else is in the VC.",
       ephemeral: true
     });
   }
 
-  const data = JSON.parse(
-    fs.readFileSync(
-      "./data/voice.json",
-      "utf8"
-    )
-  );
+  const menu =
+    new StringSelectMenuBuilder()
+      .setCustomId(
+        "transfer_owner"
+      )
+      .setPlaceholder(
+        "Select new owner"
+      )
+      .addOptions(
+        members.map(m => ({
+          label:
+            m.user.username,
+          value: m.id
+        }))
+      );
 
-  const newOwner =
-    interaction.values[0];
+  const row =
+    new ActionRowBuilder()
+      .addComponents(menu);
 
-  data[channel.id].owner =
-    newOwner;
-
-  fs.writeFileSync(
-    "./data/voice.json",
-    JSON.stringify(
-      data,
-      null,
-      2
-    )
-  );
-
-  const member =
-    await interaction.guild.members.fetch(
-      newOwner
-    );
-
-  return interaction.update({
+  return interaction.reply({
     content:
-      `👑 Ownership transferred to ${member.user.username}`,
-    components: []
+      "👑 Select the new owner:",
+    components: [row],
+    ephemeral: true
   });
 }
 
