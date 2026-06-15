@@ -26,6 +26,7 @@ import { createSuggestion } from "./systems/suggestions.js";
 
 import {
   handleJoinToCreate,
+  handleVCDelete,
   handleVCButtons
 } from "./systems/jointocreate.js";
 
