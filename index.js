@@ -13,7 +13,8 @@ import {
   ChannelType,
   PermissionFlagsBits,
   EmbedBuilder,
-  AttachmentBuilder
+  AttachmentBuilder,
+  handleVCButtons
 } from "discord.js";
 
 import { pingCommand } from "./commands/ping.js";
@@ -159,6 +160,10 @@ if (aiHandled) return;
 });
 
 client.on("interactionCreate", async (interaction) => {
+
+  if (interaction.isButton()) {
+  return handleVCButtons(interaction);
+}
 
   if (
   interaction.isButton() &&
