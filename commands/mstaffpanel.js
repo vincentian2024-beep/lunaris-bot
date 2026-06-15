@@ -12,16 +12,33 @@ export async function mstaffPanelCommand(
   const embed =
     new EmbedBuilder()
       .setColor("#a855f7")
+      .setAuthor({
+        name:
+          "Lunaris Staff Interface",
+        iconURL:
+          message.client.user.displayAvatarURL()
+      })
       .setTitle(
-        "🌙 Lunaris Staff Management"
+        "🌙 Staff Management"
       )
       .setDescription(
-`Manage your staff duty session.
+`Track your staff activity and duty status.
 
-🟢 Start Shift
+👤 Staff Features
+
+🟢 Check In
 📊 Statistics
+📅 Daily Activity
+🎮 Minecraft Linked
 
-Your Minecraft account must be linked.`
+━━━━━━━━━━━━━━
+
+Use the buttons below to manage your shift.
+
+Powered by Lunaris Craft`
+      )
+      .setThumbnail(
+        message.client.user.displayAvatarURL()
       )
       .setFooter({
         text:
@@ -38,11 +55,35 @@ Your Minecraft account must be linked.`
             "staff_checkin"
           )
           .setLabel(
-            "Start Shift"
+            "Check In"
           )
           .setEmoji("🟢")
           .setStyle(
             ButtonStyle.Success
+          ),
+
+        new ButtonBuilder()
+          .setCustomId(
+            "staff_stats"
+          )
+          .setLabel(
+            "Statistics"
+          )
+          .setEmoji("📊")
+          .setStyle(
+            ButtonStyle.Primary
+          ),
+
+        new ButtonBuilder()
+          .setCustomId(
+            "staff_activity"
+          )
+          .setLabel(
+            "Activity"
+          )
+          .setEmoji("📅")
+          .setStyle(
+            ButtonStyle.Secondary
           )
 
       );
