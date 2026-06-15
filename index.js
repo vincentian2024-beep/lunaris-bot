@@ -201,6 +201,15 @@ client.on("interactionCreate", async (interaction) => {
     )
   );
 
+  await channel.setUserLimit(limit);
+
+  return interaction.reply({
+    content:
+      `✅ Limit set to ${limit}`,
+    ephemeral: true
+  });
+}
+
   
 
   if (
