@@ -61,6 +61,11 @@ export async function handleVCDelete(
   newState
 ) {
 
+  console.log(
+    "VC Delete Check:",
+    oldState.channel?.name
+  );
+
   if (!oldState.channel) return;
 
   const data = loadData();
@@ -73,6 +78,11 @@ export async function handleVCDelete(
     oldState.channel.members.size === 0
   ) {
 
+    console.log(
+      "Deleting:",
+      oldState.channel.name
+    );
+
     delete data[
       oldState.channel.id
     ];
@@ -81,7 +91,7 @@ export async function handleVCDelete(
 
     await oldState.channel
       .delete()
-      .catch(() => {});
+      .catch(console.error);
   }
 }
 
