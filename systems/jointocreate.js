@@ -56,6 +56,35 @@ export async function handleJoinToCreate(
 saveData(data);
 }
 
+export async function handleVCDelete(
+  oldState,
+  newState
+) {
+
+  if (!oldState.channel) return;
+
+  const data = loadData();
+
+  if (
+    !data[oldState.channel.id]
+  ) return;
+
+  if (
+    oldState.channel.members.size === 0
+  ) {
+
+    delete data[
+      oldState.channel.id
+    ];
+
+    saveData(data);
+
+    await oldState.channel
+      .delete()
+      .catch(() => {});
+  }
+}
+
 export async function handleVCButtons(
   interaction
 ) {
