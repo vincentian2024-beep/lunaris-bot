@@ -138,7 +138,10 @@ if (
   );
 }
   
-"vc_rename" {
+if (
+  interaction.customId ===
+  "vc_rename"
+) {
 
   const modal =
     new ModalBuilder()
@@ -170,22 +173,35 @@ if (
     modal
   );
 }
-  
+      .setCustomId(
+        "rename_vc"
+      )
+      .setTitle(
+        "Rename Voice Channel"
+      );
 
-  delete data[channel.id];
+  const input =
+    new TextInputBuilder()
+      .setCustomId(
+        "new_name"
+      )
+      .setLabel(
+        "New VC Name"
+      )
+      .setStyle(
+        TextInputStyle.Short
+      );
 
-  saveData(data);
+  modal.addComponents(
+    new ActionRowBuilder()
+      .addComponents(input)
+  );
 
-  await interaction.reply({
-    content:
-      "🗑️ Deleting VC...",
-    ephemeral: true
-  });
-
-  await channel.delete();
-
-  return;
+  return interaction.showModal(
+    modal
+  );
 }
+  
 
   if (!interaction.isButton())
     return;
@@ -336,8 +352,7 @@ if (
       ephemeral: true
     });
 
-  return channel.delete();
-} {
+  {
 
     delete data[channel.id];
 
