@@ -109,34 +109,6 @@ if (
 
   const modal =
     new ModalBuilder()
-      .setCustomId(
-        "limit_vc"
-      )
-      .setTitle(
-        "User Limit"
-      );
-
-  const input =
-    new TextInputBuilder()
-      .setCustomId(
-        "limit"
-      )
-      .setLabel(
-        "Enter limit (0-99)"
-      )
-      .setStyle(
-        TextInputStyle.Short
-      );
-
-  modal.addComponents(
-    new ActionRowBuilder()
-      .addComponents(input)
-  );
-
-  return interaction.showModal(
-    modal
-  );
-}
   
 if (
   interaction.customId ===
@@ -346,24 +318,13 @@ if (
 
   saveData(data);
 
-  await interaction.reply({
-    content:
-      "🗑️ Deleting VC...",
-      ephemeral: true
-    });
+ await interaction.reply({
+  content:
+    "🗑️ Deleting VC...",
+    ephemeral: true
+  });
 
-  {
+return channel.delete();
 
-    delete data[channel.id];
-
-    saveData(data);
-
-    await interaction.reply({
-      content:
-        "🗑️ Deleting voice channel...",
-      ephemeral: true
-    });
-
-    return channel.delete();
   }
 }
