@@ -102,6 +102,62 @@ export async function handleVCButtons(
   interaction
 ) {
 
+if (
+  interaction.customId ===
+  "vc_rename"
+) {
+
+  const modal =
+    new ModalBuilder()
+      .setCustomId(
+        "rename_vc"
+      )
+      .setTitle(
+        "Rename Voice Channel"
+      );
+
+  const input =
+    new TextInputBuilder()
+      .setCustomId(
+        "new_name"
+      )
+      .setLabel(
+        "New VC Name"
+      )
+      .setStyle(
+        TextInputStyle.Short
+      );
+
+  modal.addComponents(
+    new ActionRowBuilder()
+      .addComponents(input)
+  );
+
+  return interaction.showModal(
+    modal
+  );
+}
+  
+  if (
+  interaction.customId ===
+  "vc_delete"
+) {
+
+  delete data[channel.id];
+
+  saveData(data);
+
+  await interaction.reply({
+    content:
+      "🗑️ Deleting VC...",
+    ephemeral: true
+  });
+
+  await channel.delete();
+
+  return;
+}
+
   if (!interaction.isButton())
     return;
 
