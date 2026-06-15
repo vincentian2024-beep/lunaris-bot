@@ -44,12 +44,6 @@ import {
   mstaffPanelCommand
 } from "./commands/mstaffpanel.js";
 
-  return mstaffPanelCommand(
-    message
-  );
-
-}
-
 const client = new Client({
   intents: [
     GatewayIntentBits.Guilds,
@@ -198,20 +192,8 @@ if (command === "mstaffpanel") {
 
 client.on("interactionCreate", async (interaction) => {
 
- client.on(
-  "interactionCreate",
-  async interaction => {
-
-    await handleVCButtons(
-      interaction
-    );
-
-    await handleStaffButtons(
-      interaction
-    );
-
-  }
-);
+await handleVCButtons(interaction);
+await handleStaffButtons(interaction);
 
 if (
   interaction.isStringSelectMenu() &&
