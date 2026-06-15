@@ -26,10 +26,6 @@ import { suggestionPanelCommand } from "./commands/suggestionpanel.js";
 import { createSuggestion } from "./systems/suggestions.js";
 
 import {
-  shipCommand
-} from "./commands/ship.js";
-
-import {
   handleStaffButtons
 }
 from "./events/staffbuttons.js";
@@ -124,12 +120,6 @@ client.on("guildMemberAdd", async (member) => {
 });
 
 client.on("messageCreate", async (message) => {
-
-  if (
-  command === "ship"
-) {
-  return shipCommand(message);
-}
   
   if (message.author.bot) return;
   
