@@ -160,7 +160,7 @@ if (aiHandled) return;
 
 client.on("interactionCreate", async (interaction) => {
 
-  if (
+ if (
   interaction.isModalSubmit() &&
   interaction.customId ===
     "limit_vc"
@@ -169,12 +169,46 @@ client.on("interactionCreate", async (interaction) => {
   const channel =
     interaction.member.voice.channel;
 
-  const limit =
-    parseInt(
-      interaction.fields.getTextInputValue(
-        "limit"
-      )
-    );
+  if (!channel) {
+    return interaction.reply({
+      content: "❌ Join a VC first.",
+      ephemeral: true
+    });
+  }
+
+  const data = JSON.parse(
+    fs.readFileSync(
+      "./data/voice.json",
+      "utf8"
+    )
+  );
+
+  if (
+    !data[channel.id] ||
+    data[channel.id].owner !==
+      interaction.user.id
+  ) {
+    return interaction.reply({
+      content:
+        "❌ Only the VC owner can change the limit.",
+      ephemeral: true
+    });
+  }
+
+  const limit = parseInt(
+    interaction.fields.getTextInputValue(
+      "limit"
+    )
+  );
+
+  await channel.setUserLimit(limit);
+
+  return interaction.reply({
+    content:
+      `✅ Limit set to ${limit}`,
+    ephemeral: true
+  });
+}
 
   await channel.setUserLimit(
     limit
@@ -187,7 +221,7 @@ client.on("interactionCreate", async (interaction) => {
   });
 }
 
-  if (
+ if (
   interaction.isModalSubmit() &&
   interaction.customId ===
     "rename_vc"
@@ -196,12 +230,45 @@ client.on("interactionCreate", async (interaction) => {
   const channel =
     interaction.member.voice.channel;
 
-    const data =
-  JSON.parse(
+  if (!channel) {
+    return interaction.reply({
+      content: "❌ Join a VC first.",
+      ephemeral: true
+    });
+  }
+
+  const data = JSON.parse(
     fs.readFileSync(
       "./data/voice.json",
       "utf8"
     )
+  );
+
+  if (
+    !data[channel.id] ||
+    data[channel.id].owner !==
+      interaction.user.id
+  ) {
+    return interaction.reply({
+      content:
+        "❌ Only the VC owner can rename the VC.",
+      ephemeral: true
+    });
+  }
+
+  const name =
+    interaction.fields.getTextInputValue(
+      "new_name"
+    );
+
+  await channel.setName(name);
+
+  return interaction.reply({
+    content:
+      `✅ VC renamed to ${name}`,
+    ephemeral: true
+  });
+}
   );
 
 if (
