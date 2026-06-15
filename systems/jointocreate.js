@@ -137,29 +137,7 @@ if (
 
   const modal =
     new ModalBuilder()
-      .setCustomId("rename_vc")
-      .setTitle(
-        "Rename Voice Channel"
-      );
-
-  const input =
-    new TextInputBuilder()
-      .setCustomId("new_name")
-      .setLabel("New VC Name")
-      .setStyle(
-        TextInputStyle.Short
-      );
-
-  modal.addComponents(
-    new ActionRowBuilder()
-      .addComponents(input)
-  );
-
-  return interaction.showModal(
-    modal
-  );
-}
-
+      
       .setCustomId(
         "rename_vc"
       )
