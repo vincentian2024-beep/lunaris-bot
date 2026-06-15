@@ -13,7 +13,8 @@ import {
   ChannelType,
   PermissionFlagsBits,
   EmbedBuilder,
-  AttachmentBuilder
+  AttachmentBuilder,
+  ActivityType
 } from "discord.js";
 
 import { pingCommand } from "./commands/ping.js";
@@ -57,7 +58,23 @@ const JTC_CHANNEL = "1514875884975423518";
 const VC_CATEGORY = "1514630686630346945";
 
 client.once("ready", () => {
-  console.log(`${client.user.tag} is online!`);
+
+  console.log(
+    `${client.user.tag} is online!`
+  );
+
+  client.user.setPresence({
+    activities: [
+      {
+        name:
+          "Guardian of Lunaris Craft 🌙",
+        type:
+          ActivityType.Watching
+      }
+    ],
+    status: "idle"
+  });
+
 });
 
 client.on(
