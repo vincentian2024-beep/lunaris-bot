@@ -8,7 +8,7 @@ export async function shipCommand(message) {
 
   const stories = [
 
-💕 **Lunaris Ship Generator — Totally Fictional Story** 💕
+`💕 **Lunaris Ship Generator — Totally Fictional Story** 💕
 
 Nobody in Lunaris Craft could remember exactly when it started.
 
@@ -16,9 +16,9 @@ Some said it began with a random conversation.
 
 Others insisted it started with a friendly argument.
 
-A few claimed it was destiny from the moment <@1488000947002282145> and <@853908176013623337> first crossed paths.
+A few claimed it was destiny from the moment ${user1} and ${user2} first crossed paths.
 
-Whatever the truth was, one thing was certain: whenever one of them appeared, the other somehow wasn't far behind.
+Whatever the truth was, one thing was certain: whenever ${user1} appeared, ${user2} somehow wasn't far behind.
 
 At first, it was nothing special.
 
@@ -28,13 +28,11 @@ A few jokes.
 
 A little teasing.
 
-The kind of thing nobody paid attention to.
-
 But as the days passed, people started noticing strange patterns.
 
-Whenever <@1488000947002282145> joined, <@853908176013623337> somehow appeared shortly afterward.
+Whenever ${user1} joined, ${user2} somehow appeared shortly afterward.
 
-Whenever <@853908176013623337> needed help, <@1488000947002282145> was somehow already there.
+Whenever ${user2} needed help, ${user1} was somehow already there.
 
 Whenever one disappeared for a while, the other seemed noticeably quieter.
 
@@ -52,9 +50,9 @@ Every shared conversation became evidence.
 
 Every interaction became a joke.
 
-Every time they worked together, someone would appear from nowhere just to type:
+Every time ${user1} and ${user2} worked together, someone would appear from nowhere just to type:
 
-"👀"
+👀
 
 And somehow that single emoji caused more chaos than any server event ever could.
 
@@ -66,9 +64,9 @@ Not because they were loud.
 
 But because they seemed to understand each other in a way nobody else did.
 
-When one was having a bad day, the other somehow knew.
+When ${user1} was having a bad day, ${user2} somehow knew.
 
-When one succeeded at something, the other celebrated just as much.
+When ${user2} succeeded at something, ${user1} celebrated just as much.
 
 When one laughed, the other usually wasn't far behind.
 
@@ -98,7 +96,7 @@ You don't see the exact second darkness becomes light.
 
 Yet somehow, before you know it, everything has changed.
 
-One evening, while Lunaris Craft was unusually quiet, they found themselves talking about everything and nothing at the same time.
+One evening, while Lunaris Craft was unusually quiet, ${user1} and ${user2} found themselves talking about everything and nothing at the same time.
 
 Favorite memories.
 
@@ -150,8 +148,6 @@ The rumors continued.
 
 And every single time they denied everything, the community became even more convinced.
 
-Eventually, the teasing became such a normal part of life that even they started laughing about it.
-
 But deep down, there was one thing they couldn't deny.
 
 No matter how chaotic the server became.
@@ -160,28 +156,13 @@ No matter how busy life got.
 
 No matter how many adventures, challenges, or distractions appeared.
 
-They always found their way back to each other.
+${user1} and ${user2} always found their way back to each other.
 
-Maybe it was friendship.
-
-Maybe it was fate.
-
-Maybe it was something nobody had found the right words for yet.
-
-Whatever it was, it became one of Lunaris Craft's favorite stories.
-
-A story built from countless conversations.
-
-A story written through shared memories.
-
-A story that made everyone smile whenever they saw those two names together.
-
-And if you ask the people of Lunaris Craft what happened next, they'll all give the same answer.
+And if you ask the people of Lunaris Craft what happened next, they'll all give the same answer:
 
 "We don't know."
 
-"But we're definitely watching." 🌙💜
-
+"But we're definitely watching." 🌙💜`
   ];
 
   const story =
@@ -192,9 +173,6 @@ And if you ask the people of Lunaris Craft what happened next, they'll all give 
       )
     ];
 
-  return message.channel.send({
-    content:
-      `💕 **Lunaris Ship Generator** 💕\n\n${story}`
-  });
+  return message.channel.send(story);
 
 }
