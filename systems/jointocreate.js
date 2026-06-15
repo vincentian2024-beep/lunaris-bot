@@ -189,6 +189,13 @@ export async function handleVCButtons(
   interaction
 ) {
 
+  if (
+  !interaction.isButton() ||
+  !interaction.customId.startsWith("vc_")
+) {
+  return;
+}
+
 if (
   interaction.customId ===
   "vc_limit"
