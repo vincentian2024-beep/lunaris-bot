@@ -51,6 +51,25 @@ export async function handleJoinToCreate(
     channel
   );
 
+  try {
+
+  await channel.send({
+    content:
+      `Hello <@${member.id}>`
+  });
+
+  console.log(
+    "Voice chat message sent."
+  );
+
+} catch (err) {
+
+  console.error(
+    "Voice chat failed:",
+    err
+  );
+}
+
   const data = loadData();
 
   data[channel.id] = {
