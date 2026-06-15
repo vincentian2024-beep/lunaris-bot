@@ -196,6 +196,22 @@ if (
     });
   }
 
+  const newName =
+    interaction.fields.getTextInputValue(
+      "new_name"
+    );
+
+  await channel.setName(
+    newName
+  );
+
+  return interaction.reply({
+    content:
+      `✅ VC renamed to ${newName}`,
+    ephemeral: true
+  });
+}
+
 if (
   interaction.isModalSubmit() &&
   interaction.customId ===
