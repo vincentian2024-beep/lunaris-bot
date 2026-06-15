@@ -174,34 +174,6 @@ if (
   );
 }
   
-  if (
-  interaction.customId ===
-  "vc_delete"
-) {
-
-  if (
-    data[channel.id].owner !==
-    interaction.user.id
-  ) {
-    return interaction.reply({
-      content:
-        "❌ Only the VC owner can delete the VC.",
-      ephemeral: true
-    });
-  }
-
-  delete data[channel.id];
-
-  saveData(data);
-
-  await interaction.reply({
-    content:
-      "🗑️ Deleting VC...",
-      ephemeral: true
-  });
-
-  return channel.delete();
-}
 
   delete data[channel.id];
 
@@ -341,10 +313,34 @@ if (
 
   // DELETE
 
+ if (
+  interaction.customId ===
+  "vc_delete"
+) {
+
   if (
-    interaction.customId ===
-    "vc_delete"
+    data[channel.id].owner !==
+    interaction.user.id
   ) {
+    return interaction.reply({
+      content:
+        "❌ Only the VC owner can delete this VC.",
+      ephemeral: true
+    });
+  }
+
+  delete data[channel.id];
+
+  saveData(data);
+
+  await interaction.reply({
+    content:
+      "🗑️ Deleting VC...",
+      ephemeral: true
+    });
+
+  return channel.delete();
+} {
 
     delete data[channel.id];
 
