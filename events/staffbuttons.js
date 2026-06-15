@@ -35,6 +35,13 @@ export async function handleStaffButtons(
 ) {
 
   if (
+    !interaction.isButton() ||
+    !interaction.customId.startsWith("vc_")
+  ) {
+    return;
+  }
+
+  if (
     !interaction.isButton()
   ) return;
 
