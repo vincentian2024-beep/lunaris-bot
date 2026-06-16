@@ -47,9 +47,6 @@ ${user1} ❤️ ${user2}
       .setThumbnail(
         user1.displayAvatarURL()
       )
-      .setImage(
-        "https://i.imgur.com/Z8b6W9Q.png"
-      )
       .setFooter({
         text:
           "Lunaris Matchmaking System"
