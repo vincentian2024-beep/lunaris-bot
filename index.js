@@ -26,6 +26,10 @@ import { suggestionPanelCommand } from "./commands/suggestionpanel.js";
 import { createSuggestion } from "./systems/suggestions.js";
 
 import {
+  shipCommand
+} from "./commands/ship.js";
+
+import {
   handleStaffButtons
 }
 from "./events/staffbuttons.js";
@@ -145,6 +149,13 @@ if (aiHandled) return;
 
   const args = message.content.slice(PREFIX.length).trim().split(/ +/);
   const command = args.shift()?.toLowerCase();
+
+  if (command === "ship") {
+  return shipCommand(
+    message,
+    args
+  );
+}
 
   // ?testwelcome @user
   if (command === "testwelcome") {
